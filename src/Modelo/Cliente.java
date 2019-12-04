@@ -109,5 +109,9 @@ public class Cliente {
     public void setCEP(String CEP) {
         this.CEP = CEP;
     }
+
+    public String getNacimento() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
