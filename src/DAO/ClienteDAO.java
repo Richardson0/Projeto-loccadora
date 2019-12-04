@@ -2,11 +2,16 @@
 package DAO;
 
 import Modelo.Cliente;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class ClienteDAO {
+public class ClienteDAO extends ExecuteSQL{
+
+    public ClienteDAO(Connection con) {
+        super(con);
+    }
    public String Inserir_Cliente(Cliente a){
    String sql = "insert into cliente values(0,?,?,?,?,?,?,?,?,?,?)";
    try {
@@ -29,8 +34,11 @@ public class ClienteDAO {
            return e.getMessage();
        }
    }
+   
+public List<Cliente> LitarCliente(){
 
-    private Object getCon() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+
+}
+
 }

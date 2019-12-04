@@ -24,4 +24,8 @@ public class Conexao extends ExecuteSQL{
             System.out.println(e.getMessage());
         }
     }
+
+    public Conexao(Connection con) {
+        super(con);
+    }
 }
