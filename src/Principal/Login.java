@@ -8,7 +8,11 @@ package Principal;
 import DAO.Conexao;
 import DAO.FuncionarioDAO;
 import java.sql.Connection;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+
+
+
+
 
 /**
  *
@@ -134,21 +138,20 @@ public class Login extends javax.swing.JFrame {
         tfUsuario.setText("");
         pfsenha.setText("");
         }else{
-             if(sql.Logar(login,senha) == true){
+             if(sql.Logar(login,senha)){
                 new Thread(){
-                public void run(){
-                for (int i = 0; i < 101; i++){
-                jProgressBar1.setValue(i);
-                try{ Thread.sleep(32);
-                }catch (Exception ex){
-                ex.getMessage();}
-                
-                }
-                new Menu().setVisible(true);
-                dispose();
-                }
-                        }.start();
-                }else{
+                    public void run(){
+                    for (int i = 0; i < 101; i++){
+                        jProgressBar1.setValue(i);
+                        try{ Thread.sleep(32);
+                    }catch (Exception ex){
+                        ex.getMessage();}
+                    }
+                    new Menu().setVisible(true);
+                    dispose();
+                    }
+                }.start();
+             }else{
                  JOptionPane.showMessageDialog(null, "Usuario ou senha invalidos", "Videos Locadora", JOptionPane.ERROR_MESSAGE);
                 tfUsuario.setText("");
                 pfsenha.setText("");
