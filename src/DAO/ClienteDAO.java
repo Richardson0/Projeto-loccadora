@@ -2,9 +2,13 @@
 package DAO;
 
 import Modelo.Cliente;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ClienteDAO extends ExecuteSQL{
@@ -35,10 +39,38 @@ public class ClienteDAO extends ExecuteSQL{
        }
    }
    
-public List<Cliente> LitarCliente(){
-
-
-
+public List<Cliente> LitarCliente() {
+    String sql = "select idcliente,nome,rg,cpf,telefone,email, from cliente";
+    List<Cliente> lista = new ArrayList<>();
+    try {
+        PreparedStatement ps = getCon().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+    
+    if(rs != null){
+        while (rs.next()){
+    Cliente a = new Cliente();
+    a.setCodigo(rs.getInt(1));
+    a.setNome(rs.getString(2));
+    a.setRG(rs.getString(3));
+    a.setCPF(rs.getString(4));
+    a.setTelefone(rs.getString(5));
+    a.setEmail(rs.getString(6));
+    
+    lista.add(a);
+    }
+    return lista;
+    }
+        else {
+    return null;
+    }
+} catch (SQLException e){
+    return null;
+  }
 }
 
+    private Object getcon() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }
