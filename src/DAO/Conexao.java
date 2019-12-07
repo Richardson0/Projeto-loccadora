@@ -4,7 +4,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 
 
-public class Conexao extends ExecuteSQL{
+public class Conexao {
    public static Connection AbrirConexao(){
     Connection con = null;
     try{
@@ -23,9 +23,5 @@ public class Conexao extends ExecuteSQL{
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-    }
-
-    public Conexao(Connection con) {
-        super(con);
     }
 }

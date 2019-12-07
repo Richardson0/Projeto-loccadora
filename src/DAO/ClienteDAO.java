@@ -2,19 +2,14 @@
 package DAO;
 
 import Modelo.Cliente;
-import java.sql.Array;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class ClienteDAO extends ExecuteSQL{
-
-    private String nome;
-
+   
     public ClienteDAO(Connection con) {
         super(con);
     }
@@ -70,19 +65,32 @@ public List<Cliente> LitarCliente() {
   }
 }
 
-    private Object getcon() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public List<Cliente> ListarCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    String sql = "Select idcliente,nome,RG,CPF,Telefone,Email" + "from cliente where nome Like'" + nome + "%'";
-   
-    public List<Cliente> Pesquisar_Cod_Cliente(int cod){
-        String sql = "Select idcliente,Nome,RG,CPF,Telefone,Email" + "from Cliente where idcliente = '" + cod + "'";
+    public List<Cliente>  Pesquisar_Nome_Cliente(String nome){
+    
+        String sql = "Select idcliente,nome,RG,CPF,Telefone,Email from cliente where nome Like'" + nome + "%'";
             return null;
-        
+    }
+    public List<Cliente> Pesquisar_Cod_Cliente(int cod){
+        String sql = "Select idcliente,Nome,RG,CPF,Telefone,Email from Cliente where idcliente = '" + cod + "'";
+            return null; }
+    public boolean Testar_Cliente(int cod){
+        boolean Resultado = false;
+        try{
+            String sql = "select * from cliente where idcliente = " + cod +"";
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs != null){
+                while(rs.next()){
+                    Resultado = true;
+                }
+            }
+        } catch (SQLException ex){
+            ex.getMessage();
+        }
+    
+        return Resultado;
+    }
     
     }
-}
+
