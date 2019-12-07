@@ -13,6 +13,8 @@ import java.util.List;
 
 public class ClienteDAO extends ExecuteSQL{
 
+    private String nome;
+
     public ClienteDAO(Connection con) {
         super(con);
     }
@@ -72,5 +74,15 @@ public List<Cliente> LitarCliente() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List<Cliente> ListarCliente() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    String sql = "Select idcliente,nome,RG,CPF,Telefone,Email" + "from cliente where nome Like'" + nome + "%'";
    
+    public List<Cliente> Pesquisar_Cod_Cliente(int cod){
+        String sql = "Select idcliente,Nome,RG,CPF,Telefone,Email" + "from Cliente where idcliente = '" + cod + "'";
+            return null;
+        
+    
+    }
 }
