@@ -5,6 +5,11 @@
  */
 package Visao.Cadastrar;
 
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author richa
@@ -41,14 +46,14 @@ public class CadastrarFilme extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tfCapa = new javax.swing.JTextField();
+        btCapa = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         choice1 = new java.awt.Choice();
         choice2 = new java.awt.Choice();
-        jLabel9 = new javax.swing.JLabel();
+        lbCapa = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
@@ -71,10 +76,10 @@ public class CadastrarFilme extends javax.swing.JFrame {
 
         jLabel8.setText("Capa");
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btCapa.setText("OK");
+        btCapa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btCapaActionPerformed(evt);
             }
         });
 
@@ -94,7 +99,7 @@ public class CadastrarFilme extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\richa\\Pictures\\DVD_VIDEO_logo.png")); // NOI18N
+        lbCapa.setIcon(new javax.swing.ImageIcon("C:\\Users\\richa\\Pictures\\DVD_VIDEO_logo.png")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,9 +138,9 @@ public class CadastrarFilme extends javax.swing.JFrame {
                                     .addGap(25, 25, 25)
                                     .addComponent(jLabel8)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfCapa, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btCapa, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -143,7 +148,7 @@ public class CadastrarFilme extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9)))
+                        .addComponent(lbCapa)))
                 .addGap(56, 56, 56))
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
@@ -197,9 +202,9 @@ public class CadastrarFilme extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addComponent(jLabel9))
+                            .addComponent(tfCapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btCapa)))
+                    .addComponent(lbCapa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -221,9 +226,21 @@ public class CadastrarFilme extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btCapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCapaActionPerformed
+    try{
+        JFileChooser foto = new JFileChooser();
+        foto.setCurrentDirectory(new File("/c:/Video Locadora/Pictures/"));
+        foto.setDialogTitle("Carregar Capa");
+        foto.showOpenDialog(this);
+        String a = "" + foto.getSelectedFile().getName();
+        tfCapa.setText(a);
+        lbCapa.setIcon(new ImageIcon
+        ("/C:/Video Locadora/Pictures/"+ lbCapa.getText() + "/"));
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Não foi possivel carregar capa");
+        }
+    }//GEN-LAST:event_btCapaActionPerformed
 
     
     public static void main(String args[]) {
@@ -259,9 +276,9 @@ public class CadastrarFilme extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCapa;
     private java.awt.Choice choice1;
     private java.awt.Choice choice2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -273,7 +290,6 @@ public class CadastrarFilme extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
@@ -282,6 +298,7 @@ public class CadastrarFilme extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JLabel lbCapa;
+    private javax.swing.JTextField tfCapa;
     // End of variables declaration//GEN-END:variables
 }

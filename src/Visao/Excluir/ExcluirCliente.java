@@ -67,6 +67,12 @@ Conexao.FecharConexao(con);
 
         jLabel3.setText("Nome");
 
+        jTF_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_codigoActionPerformed(evt);
+            }
+        });
+
         btExcluir.setText("OK");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,6 +191,10 @@ Conexao.FecharConexao(con);
         }
        }
     }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void jTF_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTF_codigoActionPerformed
 
     /**
      * @param args the command line arguments
