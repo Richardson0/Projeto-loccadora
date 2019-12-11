@@ -11,11 +11,9 @@ package Visao.Alterar;
  */
 public class AlterarFuncionario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AlterarFuncionario
-     */
-    public AlterarFuncionario() {
-        initComponents();
+    public AlterarFuncionario(){
+    initComponents();
+    setLocationRelativeTo(this);
     }
 
     /**

@@ -11,12 +11,12 @@ package Visao.Alterar;
  */
 public class AlterarDVD extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AlterarDVD
-     */
-    public AlterarDVD() {
-        initComponents();
+    public AlterarDVD(){
+    initComponents();
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setLocationRelativeTo(this);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

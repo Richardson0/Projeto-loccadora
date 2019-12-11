@@ -73,5 +73,9 @@ public class Filme {
     public void setCapa(String capa) {
         this.capa = capa;
     }
+
+    public void setCod_classificacao(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

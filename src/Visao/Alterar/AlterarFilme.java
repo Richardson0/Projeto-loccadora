@@ -11,11 +11,10 @@ package Visao.Alterar;
  */
 public class AlterarFilme extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AlterarFilme
-     */
-    public AlterarFilme() {
-        initComponents();
+    public AlterarFilme(){
+    initComponents();
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setLocationRelativeTo(this);
     }
 
     /**

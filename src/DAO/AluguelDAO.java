@@ -5,14 +5,38 @@
  */
 package DAO;
 
-/**
- *
- * @author richa
- */
-public class AluguelDAO {
+import Modelo.*;
+import DAO.*;
+import java.sql.*;
+import java.util.*;
 
-    public void Atualizar_Situacao(String situacao, int coddvd) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+
+public class AluguelDAO extends ExecuteSQL{
+
+    public AluguelDAO(Connection con) {
+        super(con);
     }
+    public String Inserir_Aluguel(Aluguel a){
+   
+   try {
+       String sql = "insert into aluguel values(0,?,?,?,?,?)";
+       PreparedStatement ps = getCon().prepareStatement(sql);
+        
+        ps.setInt(1, a.getCoddvd());
+        ps.setInt(2, a.getCodcliente());
+        ps.setString(3, a.getHorario());
+        ps.setString(4, a.getData_aluguel());
+        ps.setString(5, a.getData_devolucao());
+       
+        if (ps.executeUpdate() > 0){return"iserido com Sucesso.";
+        }else{return"Erro ao inserir";
+        }
+       } catch (SQLException e){
+           return e.getMessage();
+       }
+   }
+            
+            
     
 }

@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Alterar/AlterarFilme.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/locacao/ConsultarDevolucao.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/CategoriaDAO.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Principal/Main.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Alterar/AlterarClassificacao.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Excluir/ExcluirDVD.java</file>
@@ -27,6 +28,7 @@
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarClassificacao.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Alterar/AlterarCategoria.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarDVD.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/DVDDAO.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Principal/Menu.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarFuncionario.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Alterar/AlterarCliente.java</file>
@@ -45,6 +47,7 @@
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarFilme.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Modelo/Aluguel.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Excluir/ExcluirClassificacao.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/FilmeDAO.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarFuncionario.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Modelo/Categoria.java</file>
         </group>

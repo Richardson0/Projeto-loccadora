@@ -18,6 +18,12 @@ import javax.swing.JOptionPane;
  * @author richa
  */
 public class AlterarCliente extends javax.swing.JFrame {
+    public AlterarCliente(){
+    initComponents();
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setLocationRelativeTo(this);
+    }
+    
     private void InserirDados(int cod){
     Connection con = Conexao.AbrirConexao();
     ClienteDAO sql = new ClienteDAO(con);
@@ -43,9 +49,7 @@ public class AlterarCliente extends javax.swing.JFrame {
     
     }
     
-    public AlterarCliente() {
-        initComponents();
-    }
+    
 
   
     @SuppressWarnings("unchecked")

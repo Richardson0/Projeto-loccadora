@@ -5,15 +5,59 @@
  */
 package locacao;
 
+import DAO.ClassificacaoDAO;
+import DAO.Conexao;
+import DAO.DVDDAO;
+import DAO.FilmeDAO;
+import Modelo.Classificacao;
+import Modelo.Filme;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author richa
  */
 public class ConsultarDevolucao extends javax.swing.JFrame {
+    public void AtualizarDate(){
+        Date date = new Date();
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat hora = new SimpleDateFormat("hh:mm");
+        JTF_DataLocacao.setText(data.format(date));
+        JTF_Horas.setText(hora.format(date));
+    }
+ private void InserirDados(int cod){
+	Connection con = Conexao.AbrirConexao();
+	DVDDAO dvd = new DVDDAO(con);
+	FilmeDAO filme = new FilmeDAO(con);
+	ControleLocacao.List<ControleLocacao.DVD> listaDVD = new ArrayList<>();
+        ControleLocacao.List<Filme> listaFIL = new ArrayList<>;
+	listaDVD = dvd.ListarCodFilme(cod);
+	for (ControleLocacao.DVD a : listaDVD){
+	int codigo = a.getCod_Filme();
+	listaFIL = filme.Perquisar_Cod_Filme(codigo);
+	}
+	for (Filme a : listaFIL){
+	jTF_Titulo.setText(a.getTitulo());
+	jTF_Categoria.setText("" + a.getCod_categoria());
+	jTF_Classificacao.setText("" + a.getCod_classificacao());
+	jLbFoto.setIcon(new ImageIcon("/c:/Video Locadora/Pictures/" + a.getCapa() + "/"));
+	}
+	ClassificacaoDAO cla = new ClassificacaoDAO(con);
+	ControleLocacao.List<Classificacao> listaCLA = new ArrayList<>();
+	String b = jTF_Classificacao.getText();
+	int codigo = Integer.parseInt(b);
+	listaCLA = cla.ListarPrecoClassificacao(codigo);
+	for (Classificacao a : listaCLA){
+	double preco = a.getPreco();
+	jTF_Valor.setText("" + preco + "0");
 
-    /**
-     * Creates new form ConsultarDevolucao
-     */
+	}
+Conexao.FecharConexao(con);
+}
+    
     public ConsultarDevolucao() {
         initComponents();
     }

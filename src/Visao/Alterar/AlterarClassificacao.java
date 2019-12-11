@@ -10,13 +10,13 @@ package Visao.Alterar;
  * @author richa
  */
 public class AlterarClassificacao extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AlterarClassificacao
-     */
-    public AlterarClassificacao() {
-        initComponents();
+    public AlterarClassificacao(){
+    initComponents();
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setLocationRelativeTo(this);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

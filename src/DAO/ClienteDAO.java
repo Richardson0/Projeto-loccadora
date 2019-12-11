@@ -189,8 +189,9 @@ public List<Cliente> ConsultarCodigoCliente(String nome){
            }
         
         }catch (Exception e){
-            return null;
+            
         }
+        return null;
 
 }
     public String Excluir_Cliente(Cliente a){
