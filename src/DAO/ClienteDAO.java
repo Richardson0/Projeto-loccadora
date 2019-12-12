@@ -65,12 +65,12 @@ public List<Cliente> LitarCliente() {
   }
 }
 
+    
     public List<Cliente>  Pesquisar_Nome_Cliente(String nome){
     
         String sql = "Select idcliente,nome,RG,CPF,Telefone,Email from cliente where nome Like'" + nome + "%'";
             return null;
-    }
-    public List<Cliente> Pesquisar_Cod_Cliente(int cod){
+    }public List<Cliente> Pesquisar_Cod_Cliente(int cod){
         String sql = "Select idcliente,Nome,RG,CPF,Telefone,Email from Cliente where idcliente = '" + cod + "'";
             return null; }
     public boolean Testar_Cliente(int cod){
