@@ -37,7 +37,7 @@ public class ClienteDAO extends ExecuteSQL{
    }
    
 public List<Cliente> ListarCliente() {
-    String sql = "select id_cliente,nome,rg,cpf,telefone,email, from cliente";
+    String sql = "select idcliente,nome,rg,cpf,telefone,email, from cliente";
     List<Cliente> lista = new ArrayList<>();
     try {
         PreparedStatement ps = getCon().prepareStatement(sql);
@@ -68,10 +68,10 @@ public List<Cliente> ListarCliente() {
     
     public List<Cliente>  Pesquisar_Nome_Cliente(String nome){
     
-        String sql = "Select id_cliente,nome,RG,CPF,Telefone,Email from cliente where nome Like'" + nome + "%'";
+        String sql = "Select idcliente,nome,RG,CPF,Telefone,Email from cliente where nome Like'" + nome + "%'";
             return null;
     }public List<Cliente> Pesquisar_Cod_Cliente(int cod){
-        String sql = "Select id_cliente,Nome,RG,CPF,Telefone,Email from Cliente where idcliente = '" + cod + "'";
+        String sql = "Select idcliente,Nome,RG,CPF,Telefone,Email from Cliente where idcliente = '" + cod + "'";
             return null; }
     public boolean Testar_Cliente(int cod){
         boolean Resultado = false;
@@ -91,7 +91,7 @@ public List<Cliente> ListarCliente() {
         return Resultado;
     }
     public List<Cliente> CapturarCliente(int cod){
-        String sql = " from cliente where id_cliente =" + cod + " ";
+        String sql = " from cliente where idcliente =" + cod + " ";
         List<Cliente> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement (sql);
@@ -169,7 +169,7 @@ public List<Cliente> ListarComboCliente(){
 	}
 }
 public List<Cliente> ConsultarCodigoCliente(String nome){
-	String sql = "select id_cliente from cliente where nome '" + nome + "'";
+	String sql = "select idcliente from cliente where nome '" + nome + "'";
         List<Cliente> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);

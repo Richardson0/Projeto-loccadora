@@ -5,11 +5,14 @@
  */
 package Visao.Cadastrar;
 
+import DAO.CategoriaDAO;
 import DAO.ClienteDAO;
 import DAO.Conexao;
 import Modelo.Cliente;
 import java.sql.Connection;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -132,8 +135,7 @@ public class CadastrarCategoria extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        String nome = jTF_Nome.getText(); 
-        
-        if(nome.equals("")){
+       if(nome.equals("")){
             JOptionPane.showMessageDialog(null,"nenhum campo pode esta vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
         }else{
             Connection con = Conexao.AbrirConexao();
