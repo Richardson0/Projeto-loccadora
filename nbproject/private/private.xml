@@ -3,8 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Alterar/AlterarCategoria.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/CategoriaDAO.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/locacao/ConsultarDevolucao.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/ClassificacaoDAO.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/FuncionarioDAO.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Alterar/AlterarCliente.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/AluguelDAO.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarCliente.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Principal/Login.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Modelo/Cliente.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/locacao/ControleLocacao.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/Conexao.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/ClienteDAO.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarCliente.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/FilmeDAO.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarCategoria.java</file>
         </group>
     </open-files>
 </project-private>

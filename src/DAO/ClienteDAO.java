@@ -28,7 +28,7 @@ public class ClienteDAO extends ExecuteSQL{
         ps.setInt(9, a.getNumero());
         ps.setString(10, a.getCEP());
         
-        if (ps.executeUpdate() > 0){return"iserido com Sucesso.";
+        if (ps.executeUpdate() > 0){return"inserido com Sucesso.";
         }else{return"Erro ao inserir";
         }
        } catch (SQLException e){
@@ -36,8 +36,8 @@ public class ClienteDAO extends ExecuteSQL{
        }
    }
    
-public List<Cliente> LitarCliente() {
-    String sql = "select idcliente,nome,rg,cpf,telefone,email, from cliente";
+public List<Cliente> ListarCliente() {
+    String sql = "select id_cliente,nome,rg,cpf,telefone,email, from cliente";
     List<Cliente> lista = new ArrayList<>();
     try {
         PreparedStatement ps = getCon().prepareStatement(sql);

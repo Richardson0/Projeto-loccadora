@@ -131,7 +131,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
         Connection con = Conexao.AbrirConexao();
         ClienteDAO bd = new ClienteDAO(con);
         List<Cliente> lista = new ArrayList<>();
-        lista = bd.LitarCliente();
+        lista = bd.ListarCliente();
         DefaultTableModel tbm = (DefaultTableModel) jTable.getModel();
         while(tbm.getRowCount() > 0) {
          tbm.removeRow(0);
