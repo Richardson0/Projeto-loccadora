@@ -36,7 +36,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
    }
     
     public List<Classificacao>ListaPrecoClassificacao(int cod){
-    String sql = "Select preco from classificacao where idclassificacao = "+ cod +"";
+    String sql = "Select preco from classificacao where id_classificacao = "+ cod +"";
     List<Classificacao> lista = new ArrayList<>();
     
         try{
@@ -67,7 +67,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
         String sql = "Select id_classificacao,nome,preco from classificacao where nome Like'" + nome + "%'";
             return null;
     }public List<Classificacao> Pesquisar_Cod_Classificacao(int cod){
-        String sql = "Select idclassificacao,nome,preco from Classificacao where id_classificacao = '" + cod + "'";
+        String sql = "Select id_classificacao,nome,preco from Classificacao where id_classificacao = '" + cod + "'";
             return null; }
     
     public boolean Testar_Classificacao(int cod){
@@ -88,7 +88,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
         return Resultado;
     }
      public List<Classificacao> CapturarClassificacao(int cod){
-        String sql = " from classificacao where idclassificacao =" + cod + " ";
+        String sql = " from classificacao where id_classificacao =" + cod + " ";
         List<Classificacao> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement (sql);
