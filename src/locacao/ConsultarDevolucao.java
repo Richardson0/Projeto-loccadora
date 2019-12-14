@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package locacao;
-
+;
 import DAO.ClassificacaoDAO;
 import DAO.Conexao;
 import DAO.DVDDAO;
