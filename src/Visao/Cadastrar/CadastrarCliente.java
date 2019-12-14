@@ -51,7 +51,6 @@ public class CadastrarCliente extends javax.swing.JFrame {
         jTF_Email = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTF_Numero = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -59,6 +58,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
         tfCPF = new javax.swing.JFormattedTextField();
         jTF_Nascimento = new javax.swing.JFormattedTextField();
         jTF_CEP = new javax.swing.JFormattedTextField();
+        jTF_Numero = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
