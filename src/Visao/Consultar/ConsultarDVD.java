@@ -5,19 +5,43 @@
  */
 package Visao.Consultar;
 
+import DAO.CategoriaDAO;
+import DAO.Conexao;
+import DAO.DVDDAO;
+import Modelo.Categoria;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author richa
  */
 public class ConsultarDVD extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ConsultarDVD
-     */
+    private void AtualizaTable(){
+        Connection con = Conexao.AbrirConexao();
+        DVDDAO bd = new DVDDAO(con);
+        List<Categoria> lista = new ArrayList<>();
+        lista = bd.ListarDVD();
+        DefaultTableModel tbm = (DefaultTableModel) jTable.getModel();
+        while (tbm.getRowCount() > 0){
+            tbm.removeRow(0);
+        }
+        int i = 0;
+        for (Categoria tab : lista){
+            tbm.addRow(new String[1]);
+            jTable.setValueAt(tab.getCodigo(), i, 0);
+            jTable.setValueAt(tab.getNome(), i, 1);
+            i++;
+        }
+        Conexao.FecharConexao(con);
+    }
     public ConsultarDVD() {
         initComponents();
+        AtualizaTable();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +59,7 @@ public class ConsultarDVD extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,7 +73,7 @@ public class ConsultarDVD extends javax.swing.JFrame {
 
         jButton3.setText("Todos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -57,7 +81,7 @@ public class ConsultarDVD extends javax.swing.JFrame {
                 "Codigo", "Codigo do filme", "Preço da compra", "Data da compra", "Situação"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +175,7 @@ public class ConsultarDVD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

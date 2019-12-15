@@ -10,6 +10,7 @@ import DAO.ClienteDAO;
 import DAO.Conexao;
 import Modelo.Categoria;
 import Modelo.Cliente;
+import Principal.Menu;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,8 @@ import principal.*;
  * @author richa
  */
 public class AlterarCategoria extends javax.swing.JFrame {
-
+     
+    
     public AlterarCategoria(){
     initComponents();
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,19 +32,20 @@ public class AlterarCategoria extends javax.swing.JFrame {
     }
 
   private void InserirDados(int cod){
-    Connection con = Conexao.AbrirConexao();
-    ClienteDAO sql = new ClienteDAO(con);
-    List<Cliente> lista = new ArrayList<>();
-    lista = sql.CapturarCliente(cod);
-    
-    for(Cliente a : lista) {
-        jTF_cod.setText(a.getCodigo());
-        jTF_Nome.setText( a.getNome());
         
+        Connection con = Conexao.AbrirConexao();
+        CategoriaDAO sql = new CategoriaDAO(con);
+        List<Categoria> lista = new ArrayList<>();
+        lista = sql.CapturarCategoria(cod);
         
-         }
-    Conexao.FecharConexao(con);
-    
+        for (Categoria a : lista){
+        
+                jTF_Codigo.setText(""+ a.getCodigo());
+                jTF_Nome.setText(""+ a.getNome());
+               
+                
+        }
+        Conexao.FecharConexao(con);
     }
     
     @SuppressWarnings("unchecked")
@@ -69,6 +72,12 @@ public class AlterarCategoria extends javax.swing.JFrame {
         jLabel1.setText("Alterar Categoria");
 
         jLabel2.setText("Dig. o Codigo");
+
+        jTF_cod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_codActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +185,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        new Menu().setVisible(true);
         dispose();
     }//GEN-LAST:event_btCancelarActionPerformed
 
@@ -231,8 +241,14 @@ public class AlterarCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-        // TODO add your handling code here:
+       jTF_cod.setText("");
+        jTF_Codigo.setText("");
+        jTF_Nome.setText("");
     }//GEN-LAST:event_btLimparActionPerformed
+
+    private void jTF_codActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_codActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTF_codActionPerformed
 
     /**
      * @param args the command line arguments
