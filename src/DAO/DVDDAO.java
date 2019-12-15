@@ -31,7 +31,7 @@ public class DVDDAO extends ExecuteSQL{
         }
     }
         public List<DVD> ListarDVD(){
-        String sql = "select id_dvd, id_filme, preco_compra, data_compra, situacao from dvd";
+        String sql = "select iddvd, idfilme, preco_compra, data_compra, situacao from dvd";
         List<DVD> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -56,7 +56,7 @@ public class DVDDAO extends ExecuteSQL{
         }
     }
         public List<DVD> Pesquisar_Cod_DVD(int codigo) {
-        String sql = "select id_dvd, id_filme, preco_compra, data_compra, situacao from dvd where iddvd like '%" + codigo + "%'";
+        String sql = "select iddvd, idfilme, preco_compra, data_compra, situacao from dvd where iddvd like '%" + codigo + "%'";
            List<DVD> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -82,7 +82,7 @@ public class DVDDAO extends ExecuteSQL{
    
 }
         public List<DVD> Pesquisar_Cod_Filme(int cod) {
-        String sql = "select id_dvd, id_filme, preco_compra, data_compra, situacao from dvd where idfilme like '%" + cod + "%'";
+        String sql = "select iddvd, idfilme, preco_compra, data_compra, situacao from dvd where idfilme like '%" + cod + "%'";
            List<DVD> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -176,7 +176,7 @@ public class DVDDAO extends ExecuteSQL{
     }
     public List<DVD> ListarComboDVD() {
       
-          String sql = "select id_filme from filme order by nome";
+          String sql = "select idfilme from filme order by nome";
           List<DVD> lista = new ArrayList<>();
           try {
               PreparedStatement ps = getCon().prepareStatement(sql);
@@ -199,7 +199,7 @@ public class DVDDAO extends ExecuteSQL{
       } 
       public List<DVD> ConsultaCodigoDVD(String nome){
       
-          String sql = "select id_dvd from dvd where idfilme = '" + nome +"'";
+          String sql = "select iddvd from dvd where idfilme = '" + nome +"'";
           List<DVD> lista = new ArrayList<>();
           try {
               PreparedStatement ps = getCon().prepareStatement(sql);
@@ -220,7 +220,7 @@ public class DVDDAO extends ExecuteSQL{
           }
       }
       public String Excluir_DVD(DVD a){
-          String sql = "delete from dvd where id_dvd = ? and idfilme = ?";
+          String sql = "delete from dvd where iddvd = ? and idfilme = ?";
           
           try{
           PreparedStatement ps = getCon().prepareStatement(sql);

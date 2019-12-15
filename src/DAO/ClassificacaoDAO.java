@@ -36,7 +36,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
    }
     
     public List<Classificacao>ListaPrecoClassificacao(int cod){
-    String sql = "Select preco from classificacao where id_classificacao = "+ cod +"";
+    String sql = "Select preco from classificacao where idclassificacao = "+ cod +"";
     List<Classificacao> lista = new ArrayList<>();
     
         try{
@@ -64,16 +64,16 @@ public class ClassificacaoDAO extends ExecuteSQL{
    }
      public List<Cliente>  Pesquisar_Nome_Classificacao(String nome){
     
-        String sql = "Select id_classificacao,nome,preco from classificacao where nome Like'" + nome + "%'";
+        String sql = "Select idclassificacao,nome,preco from classificacao where nome Like'" + nome + "%'";
             return null;
     }public List<Classificacao> Pesquisar_Cod_Classificacao(int cod){
-        String sql = "Select id_classificacao,nome,preco from Classificacao where id_classificacao = '" + cod + "'";
+        String sql = "Select idclassificacao,nome,preco from Classificacao where idclassificacao = '" + cod + "'";
             return null; }
     
     public boolean Testar_Classificacao(int cod){
         boolean Resultado = false;
         try{
-            String sql = "select * from classificacao where id_classificacao = " + cod +"";
+            String sql = "select * from classificacao where idclassificacao = " + cod +"";
             PreparedStatement ps = getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             
@@ -88,7 +88,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
         return Resultado;
     }
      public List<Classificacao> CapturarClassificacao(int cod){
-        String sql = " from classificacao where id_classificacao =" + cod + " ";
+        String sql = " from classificacao where idclassificacao =" + cod + " ";
         List<Classificacao> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement (sql);
@@ -110,7 +110,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
         }
     } 
     public String Alterar_Classificacao(Classificacao a){
-    String sql = "update classificacao set nome = ?, id_classificacao = ? , preco = ?";        
+    String sql = "update classificacao set nome = ?, idclassificacao = ? , preco = ?";        
     
     try{
         PreparedStatement ps = getCon().prepareStatement(sql);
@@ -150,7 +150,7 @@ public List<Classificacao> ListarComboClassificacao(){
 	}
 }
 public List<Classificacao> ConsultarCodigoClassificacao(String nome){
-	String sql = "select id_classificacao from classificacao where nome '" + nome + "'";
+	String sql = "select idclassificacao from classificacao where nome '" + nome + "'";
         List<Classificacao> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -176,7 +176,7 @@ public List<Classificacao> ConsultarCodigoClassificacao(String nome){
 
 }
     public String Excluir_Classificacao(Classificacao a){
-        String sql = "delete from classificacao where id_classificacao = ? and nome = ? ";
+        String sql = "delete from classificacao where idclassificacao = ? and nome = ? ";
         
         try{
         PreparedStatement ps = getCon().prepareStatement(sql);

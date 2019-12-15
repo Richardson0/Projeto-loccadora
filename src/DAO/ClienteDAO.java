@@ -195,7 +195,7 @@ public List<Cliente> ConsultarCodigoCliente(String nome){
 
 }
     public String Excluir_Cliente(Cliente a){
-        String sql = "delete from cliente where id_cliente = ? and nome = ? ";
+        String sql = "delete from cliente where idcliente = ? and nome = ? ";
         
         try{
         PreparedStatement ps = getCon().prepareStatement(sql);

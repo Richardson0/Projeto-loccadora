@@ -37,7 +37,7 @@ public class CategoriaDAO extends ExecuteSQL{
        }
    }
     public List<Categoria> ListarCategoria() {
-    String sql = "select * from categoria";
+    String sql = "select idcategoria, nome from categoria";
     List<Categoria> lista = new ArrayList<>();
     
     try {
@@ -63,7 +63,7 @@ public class CategoriaDAO extends ExecuteSQL{
 }
     public List<Categoria>  Pesquisar_Nome_Categoria(String nome){
     
-            String sql = "Select * from categoria where nome Like'" + nome + "%'";
+            String sql = "Select idcategoria, nome from categoria where nome Like'" + nome + "%'";
             List<Categoria> lista = new ArrayList<>();
             
             try{
@@ -89,7 +89,7 @@ public class CategoriaDAO extends ExecuteSQL{
     }
     }
     public List<Categoria> Pesquisar_Cod_Categoria(int cod){
-        String sql = "Select * from categoria where id_categoria    = '" + cod + "'";
+        String sql = "Select idcategoria, nome from categoria where idcategoria    = '" + cod + "'";
            List<Categoria> lista = new ArrayList<>();
             
             try{
@@ -118,7 +118,7 @@ public class CategoriaDAO extends ExecuteSQL{
     public boolean Testar_Categoria(int cod){
         boolean Resultado = false;
         try{
-            String sql = "select * from categoria where id_categoria = " + cod +"";
+            String sql = "select idcategoria, nome from categoria where idcategoria = " + cod +"";
             PreparedStatement ps = getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             
@@ -133,7 +133,7 @@ public class CategoriaDAO extends ExecuteSQL{
         return Resultado;
     }
  public List<Categoria> CapturarCategoria(int cod){
-        String sql = " from categoria where id_categoria =" + cod + " ";
+        String sql = " from categoria where idcategoria =" + cod + " ";
         List<Categoria> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement (sql);
@@ -154,7 +154,7 @@ public class CategoriaDAO extends ExecuteSQL{
         }
     }
      public String Alterar_Categoria(Categoria a){
-    String sql = "update categoria set id_categoria = ?, nome = ? , where id_categoria = ? ";        
+    String sql = "update categoria set idcategoria = ?, nome = ? , where idcategoria = ? ";        
     
     try{
         PreparedStatement ps = getCon().prepareStatement(sql);
@@ -217,7 +217,7 @@ public class CategoriaDAO extends ExecuteSQL{
 
 }
       public String Excluir_Categoria(Categoria a){
-        String sql = "delete from categoria where id_categoria = ? and nome = ? ";
+        String sql = "delete from categoria where idcategoria = ? and nome = ? ";
         
         try{
         PreparedStatement ps = getCon().prepareStatement(sql);

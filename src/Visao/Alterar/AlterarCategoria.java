@@ -6,11 +6,14 @@
 package Visao.Alterar;
 
 import DAO.CategoriaDAO;
+import DAO.ClienteDAO;
 import DAO.Conexao;
 import Modelo.Categoria;
+import Modelo.Cliente;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
-import static locacao.ControleLocacao.InserirDados;
 import modelo.*;
 import principal.*;
 
@@ -26,7 +29,22 @@ public class AlterarCategoria extends javax.swing.JFrame {
     setLocationRelativeTo(this);
     }
 
-  
+  private void InserirDados(int cod){
+    Connection con = Conexao.AbrirConexao();
+    ClienteDAO sql = new ClienteDAO(con);
+    List<Cliente> lista = new ArrayList<>();
+    lista = sql.CapturarCliente(cod);
+    
+    for(Cliente a : lista) {
+        jTF_cod.setText(a.getCodigo());
+        jTF_Nome.setText( a.getNome());
+        
+        
+         }
+    Conexao.FecharConexao(con);
+    
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,12 +52,12 @@ public class AlterarCategoria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jTF_Codigo = new javax.swing.JTextField();
+        jTF_cod = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTF_cod = new javax.swing.JTextField();
+        jTF_Codigo = new javax.swing.JTextField();
         jTF_Nome = new javax.swing.JTextField();
         btLimpar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
@@ -93,7 +111,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTF_Codigo)
+                .addComponent(jTF_cod)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
@@ -107,7 +125,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTF_cod, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
@@ -132,7 +150,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTF_cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
                         .addComponent(jLabel2)))
@@ -141,7 +159,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTF_cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -162,7 +180,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         String codigo = jTF_cod.getText();
+         String codigo = jTF_Codigo.getText();
         Connection con = Conexao.AbrirConexao();
         CategoriaDAO sql = new CategoriaDAO(con);
         int cod = Integer.parseInt(codigo);
@@ -175,16 +193,16 @@ public class AlterarCategoria extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Digite um codigo para atualizar",
                 "video locadora", JOptionPane.WARNING_MESSAGE);
         }
-        jTF_Codigo.setText("");
+        jTF_cod.setText("");
         jTF_Nome.setText("");
       
 
         InserirDados(cod);
-        jTF_cod.setText("");
+        jTF_Codigo.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-       String codigo = jTF_Codigo.getText();
+       String codigo = jTF_cod.getText();
         String nome = jTF_Nome.getText();
     
         if(nome.equals("")){
@@ -202,7 +220,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
             sql.Alterar_Categoria(a);
             Conexao.FecharConexao(con);
 
-            jTF_Codigo.setText("");
+            jTF_cod.setText("");
             jTF_Nome.setText("");
       
             JOptionPane.showMessageDialog(null,"Atualizado com Sucesso",

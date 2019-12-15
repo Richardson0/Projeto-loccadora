@@ -206,5 +206,9 @@ public class AluguelDAO extends ExecuteSQL{
           return e.getMessage();
       }
   }
+
+    public void Atualizar_Situacao(String situacao, int coddvd) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

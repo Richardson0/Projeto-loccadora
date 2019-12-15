@@ -56,7 +56,7 @@ public class FuncionarioDAO extends ExecuteSQL {
     
     
         public List<Funcionario> ListarFuncionario(){
-        String sql = "select id_funcionario,nome,login,senha from funcionario";
+        String sql = "select idfuncionario,nome,login,senha from funcionario";
         List<Funcionario> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -80,7 +80,7 @@ public class FuncionarioDAO extends ExecuteSQL {
         }
     }
         public List<Funcionario> Pesquisar_Nome_Funcionario(String nome){
-        String sql = "select id_funcionario,nome,login,senha from funcionario where nome like '%" + nome + "%'";
+        String sql = "select idfuncionario,nome,login,senha from funcionario where nome like '%" + nome + "%'";
         List<Funcionario> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -104,7 +104,7 @@ public class FuncionarioDAO extends ExecuteSQL {
         }
     }
         public List<Funcionario> Pesquisar_Cod_Funcionario(int cod){
-        String sql = "select id_funcionario,nome,login,senha from funcionario where id_funcionario like '%" + cod + "%'";
+        String sql = "select idfuncionario,nome,login,senha from funcionario where idfuncionario like '%" + cod + "%'";
         List<Funcionario> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -128,7 +128,7 @@ public class FuncionarioDAO extends ExecuteSQL {
         }
     }
         public String Alterar_Funcionario(Funcionario a){
-            String sql = "update funcionario set nome = ? , login = ? ,senha = ? where id_funcionario = ? ";
+            String sql = "update funcionario set nome = ? , login = ? ,senha = ? where idfuncionario = ? ";
         try {
             
             PreparedStatement ps =  getCon().prepareStatement(sql);
@@ -149,7 +149,7 @@ public class FuncionarioDAO extends ExecuteSQL {
             boolean Resultado = false;
             try {
             
-                String sql = "select * from funcionario where id_funcionario = " + cod +"";
+                String sql = "select * from funcionario where idfuncionario = " + cod +"";
                 PreparedStatement ps = getCon().prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 
@@ -164,7 +164,7 @@ public class FuncionarioDAO extends ExecuteSQL {
             return Resultado;
         }
         public List<Funcionario> Capturar_Funcionario(int cod){
-            String sql = "select * from funcionario where id_funcionario = " + cod + "";
+            String sql = "select * from funcionario where idfuncionario = " + cod + "";
             List<Funcionario> lista = new ArrayList<>();
             try{
                 PreparedStatement ps = getCon().prepareStatement(sql);
@@ -211,7 +211,7 @@ public class FuncionarioDAO extends ExecuteSQL {
       } 
       public List<Funcionario> ConsultaCodigoFuncionario(String nome){
       
-          String sql = "select id_funcionario from funcionario where nome = '" + nome +"'";
+          String sql = "select idfuncionario from funcionario where nome = '" + nome +"'";
           List<Funcionario> lista = new ArrayList<>();
           try {
               PreparedStatement ps = getCon().prepareStatement(sql);
@@ -232,7 +232,7 @@ public class FuncionarioDAO extends ExecuteSQL {
           }
       }
       public String Excluir_Funcionario(Funcionario a){
-          String sql = "delete from funcionario where id_funcionario = ? and nome = ?";
+          String sql = "delete from funcionario where idfuncionario = ? and nome = ?";
           
           try{
           PreparedStatement ps = getCon().prepareStatement(sql);

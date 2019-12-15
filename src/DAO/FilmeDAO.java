@@ -40,7 +40,7 @@ public class FilmeDAO extends ExecuteSQL{
         
         public List<Filme> ListarFilme(){
         
-        String sql = "select id_filme,titulo,ano,duracao,id_categoria,id_classificacao,capa from filme";
+        String sql = "select idfilme,titulo,ano,duracao,idcategoria,idclassificacao,capa from filme";
         List<Filme> lista = new ArrayList<>();
         
         try{
@@ -70,7 +70,7 @@ public class FilmeDAO extends ExecuteSQL{
         
         public List<Filme> Pesquisar_Nome_Filme(String titulo) {
         
-        String sql = "select id_filme, titulo , ano, duracao, id_categoria, id_classificacao, capa from filme where titulo like '%" + titulo + "%'";
+        String sql = "select idfilme, titulo , ano, duracao, idcategoria, idclassificacao, capa from filme where titulo like '%" + titulo + "%'";
         List<Filme> lista = new ArrayList<>();
         
         try{
@@ -99,7 +99,7 @@ public class FilmeDAO extends ExecuteSQL{
 }
         public List<Filme> Pesquisar_Cod_Filme(int cod) {
         
-           String sql = "select id_filme, titulo , ano, duracao, id_categoria, id_classificacao, capa from filme where id_filme like '%" + cod + "%'";
+           String sql = "select idfilme, titulo , ano, duracao, idcategoria, idclassificacao, capa from filme where idfilme like '%" + cod + "%'";
            List<Filme> lista = new ArrayList<>();
        
            try{
@@ -131,7 +131,7 @@ public class FilmeDAO extends ExecuteSQL{
 }
         public String Alterar_Filme(Filme a){
             
-            String sql = "update filme set titulo = ? , ano = ? ,duracao = ?" + ",id_categoria =? ,id_classificacao = ?, capa = ?" + " where id_filme = ? ";
+            String sql = "update filme set titulo = ? , ano = ? ,duracao = ?" + ",idcategoria =? ,idclassificacao = ?, capa = ?" + " where idfilme = ? ";
         
             try {
             
@@ -156,7 +156,7 @@ public class FilmeDAO extends ExecuteSQL{
             boolean Resultado = false;
             try {
             
-                String sql = "select * from filme where id_filme = " + cod +"";
+                String sql = "select * from filme where idfilme = " + cod +"";
                 PreparedStatement ps = getCon().prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 
@@ -171,7 +171,7 @@ public class FilmeDAO extends ExecuteSQL{
             return Resultado;
         }
         public List<Filme> Capturar_Filme(int cod){
-            String sql = "select * from filme where id_filme = " + cod + "";
+            String sql = "select * from filme where idfilme = " + cod + "";
             List<Filme> lista = new ArrayList<>();
             try{
                 PreparedStatement ps = getCon().prepareStatement(sql);
@@ -221,7 +221,7 @@ public class FilmeDAO extends ExecuteSQL{
       } 
       public List<Filme> ConsultaCodigoFilme(String nome){
       
-          String sql = "select id_filme from filme where titulo = '" + nome +"'";
+          String sql = "select idfilme from filme where titulo = '" + nome +"'";
           List<Filme> lista = new ArrayList<>();
           try {
               PreparedStatement ps = getCon().prepareStatement(sql);
@@ -242,7 +242,7 @@ public class FilmeDAO extends ExecuteSQL{
           }
       }
       public String Excluir_Filme(Filme a){
-          String sql = "delete from filme where id_filme = ? and titulo = ?";
+          String sql = "delete from filme where idfilme = ? and titulo = ?";
           
           try{
           PreparedStatement ps = getCon().prepareStatement(sql);
