@@ -424,7 +424,7 @@ public class ControleLocacao extends javax.swing.JFrame {
                jLbFoto.setIcon(new ImageIcon(""));
                jTF_Codigo.setText("");
            }else
-          if(sql.Testar_Situacao(cod) == false){
+          if(sql.Testar_DVD(cod) == false){
               JOptionPane.showMessageDialog(null, "o DVD de codigo("+cod+")" + "esta Emprestado", "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
               jTF_CodDVD.setText("");
                jTF_Titulo.setText("");
