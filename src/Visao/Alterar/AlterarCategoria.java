@@ -6,17 +6,13 @@
 package Visao.Alterar;
 
 import DAO.CategoriaDAO;
-import DAO.ClienteDAO;
 import DAO.Conexao;
 import Modelo.Categoria;
-import Modelo.Cliente;
 import Principal.Menu;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
-import modelo.*;
-import principal.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,10 +21,10 @@ import principal.*;
 public class AlterarCategoria extends javax.swing.JFrame {
      
     
-    public AlterarCategoria(){
-    initComponents();
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLocationRelativeTo(this);
+    public AlterarCategoria() {
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(this);
     }
 
   private void InserirDados(int cod){
@@ -300,4 +296,10 @@ public class AlterarCategoria extends javax.swing.JFrame {
     private javax.swing.JTextField jTF_Nome;
     private javax.swing.JTextField jTF_cod;
     // End of variables declaration//GEN-END:variables
+    
+    
+        
+     
 }
+
+

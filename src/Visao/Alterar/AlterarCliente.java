@@ -8,7 +8,7 @@ package Visao.Alterar;
 import DAO.ClienteDAO;
 import DAO.Conexao;
 import Modelo.Cliente;
-import java.sql.Connection;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -18,10 +18,11 @@ import javax.swing.JOptionPane;
  * @author richa
  */
 public class AlterarCliente extends javax.swing.JFrame {
-    public AlterarCliente(){
-    initComponents();
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLocationRelativeTo(this);
+    
+    public AlterarCliente() {
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(this);
     }
     
     private void InserirDados(int cod){
@@ -98,6 +99,11 @@ public class AlterarCliente extends javax.swing.JFrame {
         });
 
         jButton2.setText("Limpar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -314,36 +320,39 @@ public class AlterarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTF_codActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String codigo = jTF_cod.getText();
-    Connection con = Conexao.AbrirConexao();
-    ClienteDAO sql = new ClienteDAO(con);
-    int cod = Integer.parseInt(codigo);
-    if (sql.Testar_Cliente(cod) == false){
-	JOptionPane.showMessageDialog(null, "Codigo não encontrado no Banco", "Video Locadora", JOptionPane.ERROR_MESSAGE);
-        Conexao.FecharConexao(con);
-}
-if (codigo.equals("")){
-    JOptionPane.showMessageDialog(null, "Digite um codigo para Atualizar", "Video Locadora", JOptionPane.WARNING_MESSAGE);
-}
-    jTF_Codigo.setText("");
-    jTF_Nome.setText("");
-    jTF_CEP.setText("");
-    jTF_Numero.setText("");
-    jTF_Bairro.setText("");
-    jTF_Email.setText("");
-    jTF_Telefone.setText("");
-    jTF_Rua.setText("");
-    jTF_Nascimento.setText("");
-    jTF_RG.setText("");
-    jTF_CPF.setText("");
+   String codigo = jTF_cod.getText();
+        Connection con = Conexao.AbrirConexao();
+        ClienteDAO sql = new ClienteDAO(con);
+        int cod = Integer.parseInt(codigo);
+        if (sql.Testar_Cliente(cod) == false) {
+            JOptionPane.showMessageDialog(null, "Codigo não Encontrado no Banco",
+                "Video Locadora", JOptionPane.ERROR_MESSAGE);
+            Conexao.FecharConexao(con);
+        }
+        if (codigo.equals("")){
+            JOptionPane.showMessageDialog(null, "Digite um Codigo para Atualizar",
+                "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        }
+        jTF_Codigo.setText("");
+        jTF_Nome.setText("");
+        jTF_CEP.setText("");
+        jTF_Numero.setText("");
+        jTF_Bairro.setText("");
+        jTF_Email.setText("");
+        jTF_Telefone.setText("");
+        jTF_Rua.setText("");
+        jTF_Nascimento.setText("");
+        jTF_RG.setText("");
+        jTF_CPF.setText("");
 
-InserirDados(cod);
-jTF_cod.setText("");
+        InserirDados(cod);
+        jTF_cod.setText("");
+   
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String codigo = jTF_Codigo.getText();
+         String codigo = jTF_Codigo.getText();
         String nome = jTF_Nome.getText();
         String nascimento = jTF_Nascimento.getText();
         String cep = jTF_CEP.getText();
@@ -354,45 +363,61 @@ jTF_cod.setText("");
         String fone = jTF_Telefone.getText();
         String cpf = jTF_CPF.getText();
         String rg = jTF_RG.getText();
-        if (nome.equals("")){
-	JOptionPane.showMessageDialog(null, "nenhum campo pode est vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
-    } else {
-	Connection con = Conexao.AbrirConexao();
-	ClienteDAO sql = new ClienteDAO(con);
-	int num = Integer.parseInt(numero);
-	int cod = Integer.parseInt(codigo);
-	Cliente a = new Cliente();
-
-	a.setCodigo(cod);
-	a.setNumero(numero);
-	a.setNascimento(nascimento);
-	a.setRG(rg);
-	a.setCPF(cpf);
-	a.setNumero(num);
-	a.setBairro(bairro);
-	a.setCEP(cep);
-	a.setRua(rua);
-	a.setEmail(email);
-	a.setTelefone(fone);
-
-	sql.Alterar_Cliente(a);
-	Conexao.FecharConexao(con);
-        jTF_Nome.setText("");
-	jTF_CEP.setText("");
-	jTF_Numero.setText("");
-	jTF_Bairro.setText("");
-	jTF_Email.setText("");
-	jTF_Telefone.setText("");
-	jTF_Rua.setText("");
-	jTF_Nascimento.setText("");
-	jTF_RG.setText("");
-	jTF_CPF.setText("");
-	
-        JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
-	dispose();
-}
+        if (nome.equals("")) {
+            JOptionPane.showMessageDialog(null, "nenhum campo pode estar vazio", 
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Connection con = Conexao.AbrirConexao();
+            ClienteDAO sql = new ClienteDAO(con);
+            int num = Integer.parseInt(numero);
+            int cod = Integer.parseInt(codigo);
+            Cliente a = new Cliente();
+            
+            a.setCodigo(cod);
+            a.setNome(nome);
+            a.setNascimento(nascimento);
+            a.setCEP(cep);
+            a.setRua(rua);
+            a.setNumero(num);
+            a.setBairro(bairro);
+            a.setEmail(email);
+            a.setTelefone(fone);
+            a.setCPF(cpf);
+            a.setRG(rg);
+            
+            sql.Alterar_Cliente(a);
+            Conexao.FecharConexao(con);
+            
+            jTF_Codigo.setText("");
+            jTF_Nome.setText("");
+            jTF_CEP.setText("");
+            jTF_Numero.setText("");
+            jTF_Bairro.setText("");
+            jTF_Email.setText("");
+            jTF_Telefone.setText("");
+            jTF_Rua.setText("");
+            jTF_Nascimento.setText("");
+            jTF_RG.setText("");
+            jTF_CPF.setText("");
+            JOptionPane.showMessageDialog(null, "Alteração Realizada com Sucesso",
+                    "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jTF_Codigo.setText("");
+            jTF_Nome.setText("");
+            jTF_CEP.setText("");
+            jTF_Numero.setText("");
+            jTF_Bairro.setText("");
+            jTF_Email.setText("");
+            jTF_Telefone.setText("");
+            jTF_Rua.setText("");
+            jTF_Nascimento.setText("");
+            jTF_RG.setText("");
+            jTF_CPF.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

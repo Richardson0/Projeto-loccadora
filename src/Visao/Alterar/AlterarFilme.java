@@ -5,26 +5,26 @@
  */
 package Visao.Alterar;
 
-import DAO.Conexao;
-import DAO.FilmeDAO;
-import Modelo.Filme;
-import Principal.Menu;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
+import DAO.*;
+import Modelo.*;
+import java.io.*;
+import java.nio.channels.FileChannel;
+import java.sql.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  *
  * @author richa
  */
 public class AlterarFilme extends javax.swing.JFrame {
-     private void InserirDados(int cod){
+     
+    private void InserirDados(int cod){
         
         Connection con = Conexao.AbrirConexao();
         FilmeDAO sql = new FilmeDAO(con);
         List<Filme> lista = new ArrayList<>();
-        lista = sql.Capturar_Filme(cod);
+        lista = sql.CapturarFilme(cod);
         
         for (Filme a : lista){
         
@@ -39,10 +39,67 @@ public class AlterarFilme extends javax.swing.JFrame {
         Conexao.FecharConexao(con);
     }
     
-    public AlterarFilme(){
-    initComponents();
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLocationRelativeTo(this);
+    public AlterarFilme() {
+        initComponents();
+        setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        ComboCategoria();
+        ComboClassificacao();
+    }
+    
+    public void ComboCategoria(){
+        Connection con = Conexao.AbrirConexao();
+        CategoriaDAO bd = new CategoriaDAO(con);
+        List<Categoria> lista = new ArrayList<>();
+        lista = bd.ListarComboCategoria();
+        jCB_Categoria.addItem("");
+
+        for (Categoria tab : lista) {
+
+            jCB_Categoria.addItem(tab.getNome());
+        }
+        Conexao.FecharConexao(con);
+    }
+
+     public void SelecionaComboCategoria(){
+        Connection con = Conexao.AbrirConexao();
+        CategoriaDAO bd = new CategoriaDAO(con);
+        List<Categoria> lista = new ArrayList<>();
+        lista = bd.ConsultaCodigoCategoria(jCB_Categoria.getSelectedItem().toString());
+
+        for (Categoria tab : lista) {
+            int a = tab.getCodigo();
+            jTF_Categoria.setText(""+a);
+        }
+        Conexao.FecharConexao(con);
+    }
+     
+     public void ComboClassificacao(){
+        Connection con = Conexao.AbrirConexao();
+        ClassificacaoDAO bd = new ClassificacaoDAO(con);
+        List<Classificacao> lista = new ArrayList<>();
+        lista = bd.ListarComboClassificacao();
+        jCB_Classificacao.addItem("");
+
+        for (Classificacao tab : lista) {
+
+            jCB_Classificacao.addItem(tab.getNome());
+        }
+        Conexao.FecharConexao(con);
+    }
+     
+     public void SelecionaComboClassificacao(){
+        Connection con = Conexao.AbrirConexao();
+        ClassificacaoDAO bd = new ClassificacaoDAO(con);
+        List<Classificacao> lista = new ArrayList<>();
+        lista = bd.ConsultaCodigoClassificacao(jCB_Classificacao.getSelectedItem().toString());
+
+        for (Classificacao tab : lista) {
+            int a = tab.getCodigo();
+            jTF_Classificacao.setText(""+a);
+        }
+        Conexao.FecharConexao(con);
     }
 
     /**
@@ -77,6 +134,9 @@ public class AlterarFilme extends javax.swing.JFrame {
         jTF_Classificacao = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTF_Capa = new javax.swing.JTextField();
+        jCB_Categoria = new javax.swing.JComboBox<>();
+        jCB_Classificacao = new javax.swing.JComboBox<>();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,6 +187,27 @@ public class AlterarFilme extends javax.swing.JFrame {
 
         jLabel9.setText("Capa");
 
+        jCB_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCB_Categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_CategoriaActionPerformed(evt);
+            }
+        });
+
+        jCB_Classificacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCB_Classificacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_ClassificacaoActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("...");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,9 +225,9 @@ public class AlterarFilme extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jButton2)
-                .addGap(53, 53, 53)
+                .addGap(85, 85, 85)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addGap(57, 57, 57))
             .addGroup(layout.createSequentialGroup()
@@ -160,34 +241,41 @@ public class AlterarFilme extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTF_Duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel9)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(jTF_Capa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTF_Codigo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel7)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTF_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTF_Ano, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTF_Classificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel7)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTF_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCB_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTF_Duracao, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel9)
+                                            .addGap(12, 12, 12)
+                                            .addComponent(jTF_Capa))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTF_Ano, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel8)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jTF_Classificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jCB_Classificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton5)))))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(126, 126, 126)
                             .addComponent(jLabel1))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +299,8 @@ public class AlterarFilme extends javax.swing.JFrame {
                         .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(jTF_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTF_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCB_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -221,19 +310,21 @@ public class AlterarFilme extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jTF_Ano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jTF_Classificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTF_Classificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCB_Classificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTF_Duracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(jTF_Capa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTF_Capa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,21 +335,26 @@ public class AlterarFilme extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          String codigo = jTF_cod.getText();
+        String codigo = jTF_cod.getText();
         Connection con = Conexao.AbrirConexao();
         FilmeDAO sql = new FilmeDAO(con);
         int cod = Integer.parseInt(codigo);
-        if(sql.Testar_Filme(cod) == false){
-            JOptionPane.showMessageDialog(null,"Código não encontrado no banco",
-                "Video locadora", JOptionPane.ERROR_MESSAGE);
+        if (sql.Testar_Filme(cod) == false) {
+            JOptionPane.showMessageDialog(null, "Codigo não Encontrado no Banco",
+                "Video Locadora", JOptionPane.ERROR_MESSAGE);
             Conexao.FecharConexao(con);
         }
         if (codigo.equals("")){
-            JOptionPane.showMessageDialog(null,"Digite um codigo para atualizar",
-                "video locadora", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Digite um Codigo para Atualizar",
+                "Video Locadora", JOptionPane.WARNING_MESSAGE);
         }
         jTF_Codigo.setText("");
         jTF_Titulo.setText("");
+        jTF_Ano.setText("");
+        jTF_Duracao.setText("");
+        jTF_Categoria.setText("");
+        jTF_Classificacao.setText("");
+        jTF_Capa.setText("");
 
         InserirDados(cod);
         jTF_cod.setText("");
@@ -266,49 +362,102 @@ public class AlterarFilme extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String codigo = jTF_Codigo.getText();
-        String nome = jTF_Titulo.getText();
-        
-
-        if(nome.equals("")){
-            JOptionPane.showMessageDialog(null,"nenhum campo pode estar vazio"
-                ,"Video Locadora",JOptionPane.WARNING_MESSAGE);
-        }else{
+        String titulo = jTF_Titulo.getText();
+        String ano = jTF_Ano.getText();
+        String duracao = jTF_Duracao.getText();
+        String categoria = jTF_Categoria.getText();
+        String classificacao = jTF_Classificacao.getText();
+        String capa = jTF_Capa.getText();
+        if (titulo.equals("")) {
+            JOptionPane.showMessageDialog(null, "nenhum campo pode estar vazio", 
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
             Connection con = Conexao.AbrirConexao();
             FilmeDAO sql = new FilmeDAO(con);
-            int cod =  Integer.parseInt(codigo);
+            int cod = Integer.parseInt(codigo);
+            int anoi = Integer.parseInt(ano);
+            int cat = Integer.parseInt(categoria);
+            int cla = Integer.parseInt(classificacao);
             Filme a = new Filme();
-
             
             a.setCodigo(cod);
-            a.setTitulo(nome);
+            a.setTitulo(titulo);
+            a.setAno(anoi);
+            a.setDuracao(duracao);
+            a.setCod_categoria(cat);
+            a.setCod_classificacao(cla);
+            a.setCapa(capa);
             
-
             sql.Alterar_Filme(a);
             Conexao.FecharConexao(con);
-
+            
             jTF_Codigo.setText("");
             jTF_Titulo.setText("");
-            
-
-            JOptionPane.showMessageDialog(null,"Atualizado com Sucesso",
-                "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
-            new Menu().setVisible(true);
+            jTF_Ano.setText("");
+            jTF_Duracao.setText("");
+            jTF_Categoria.setText("");
+            jTF_Classificacao.setText("");
+            jTF_Capa.setText("");
+            JOptionPane.showMessageDialog(null, "Alteração Realizada com Sucesso",
+                    "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        jTF_cod.setText("");
-        jTF_Codigo.setText("");
-        jTF_Ano.setText("");
-        jTF_Capa.setText("");  
-        jTF_Categoria.setText("");
-        jTF_Classificacao.setText("");
-        jTF_Duracao.setText("");
-        jTF_Titulo.setText("");
+            jTF_Titulo.setText("");
+            jTF_Ano.setText("");
+            jTF_Duracao.setText("");
+            jTF_Categoria.setText("");
+            jTF_Classificacao.setText("");
+            jTF_Capa.setText("");
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCB_CategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_CategoriaActionPerformed
+        Connection con = Conexao.AbrirConexao();
+        CategoriaDAO sql = new CategoriaDAO(con);
+        List<Categoria> lista = new ArrayList<>();
+        String nome = jCB_Categoria.getSelectedItem().toString();
+        
+        lista = sql.ConsultaCodigoCategoria(nome);
+        
+        for (Categoria b : lista) {
+            int a = b.getCodigo();
+            jTF_Categoria.setText("" + a);
+        }
+        Conexao.FecharConexao(con);
+    }//GEN-LAST:event_jCB_CategoriaActionPerformed
+
+    private void jCB_ClassificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_ClassificacaoActionPerformed
+       Connection con = Conexao.AbrirConexao();
+        ClassificacaoDAO sql = new ClassificacaoDAO(con);
+        List<Classificacao> lista = new ArrayList<>();
+        String nome = jCB_Classificacao.getSelectedItem().toString();
+        
+        lista = sql.ConsultaCodigoClassificacao(nome);
+        
+        for (Classificacao b : lista) {
+            int a = b.getCodigo();
+            jTF_Classificacao.setText("" + a);
+        }
+        Conexao.FecharConexao(con);  
+    }//GEN-LAST:event_jCB_ClassificacaoActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+         try {
+    JFileChooser foto = new JFileChooser();
+    foto.setCurrentDirectory(new File("/C:/Users/Will/Documents/NetBeansProjects/Locadora/src/imagens"));
+    foto.setDialogTitle("Carregar capa");
+    foto.showOpenDialog(this);
+    String a = ""+foto.getSelectedFile().getName();
+    jTF_Capa.setText(a);
+    
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Não foi possivel carregar a capa");
+}
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,6 +499,9 @@ public class AlterarFilme extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox<String> jCB_Categoria;
+    private javax.swing.JComboBox<String> jCB_Classificacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

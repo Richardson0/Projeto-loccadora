@@ -6,21 +6,19 @@
 package Visao.Alterar;
 
 
-import DAO.CategoriaDAO;
 import DAO.ClassificacaoDAO;
 import DAO.Conexao;
 import Modelo.Classificacao;
-import Principal.Menu;
-import java.sql.Connection;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class AlterarClassificacao extends javax.swing.JFrame {
-    public AlterarClassificacao(){
-    initComponents();
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLocationRelativeTo(this);
+    public AlterarClassificacao() {
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(this);
     }
      private void InserirDados(int cod){
         
@@ -194,60 +192,53 @@ public class AlterarClassificacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String codigo = jTF_Codigo.getText();
+        String codigo = jTF_cod.getText();
         Connection con = Conexao.AbrirConexao();
         ClassificacaoDAO sql = new ClassificacaoDAO(con);
         int cod = Integer.parseInt(codigo);
-        if(sql.Testar_Classificacao(cod) == false){
-            JOptionPane.showMessageDialog(null,"Código não encontrado no banco",
-                "Video locadora", JOptionPane.ERROR_MESSAGE);
+        if (sql.Testar_Classificacao(cod) == false) {
+            JOptionPane.showMessageDialog(null, "Codigo não Encontrado no Banco",
+                "Video Locadora", JOptionPane.ERROR_MESSAGE);
             Conexao.FecharConexao(con);
         }
         if (codigo.equals("")){
-            JOptionPane.showMessageDialog(null,"Digite um codigo para atualizar",
-                "video locadora", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Digite um Codigo para Atualizar",
+                "Video Locadora", JOptionPane.WARNING_MESSAGE);
         }
-        jTF_cod.setText("");
+        jTF_Codigo.setText("");
         jTF_Nome.setText("");
-      
 
         InserirDados(cod);
-        jTF_Codigo.setText("");
+        jTF_cod.setText("");
+         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String codigo = jTF_Codigo.getText();
         String nome = jTF_Nome.getText();
-        String  preco = jTF_Preco.getText();
-
-        if(nome.equals("")){
-            JOptionPane.showMessageDialog(null,"nenhum campo pode estar vazio"
-                ,"Video Locadora",JOptionPane.WARNING_MESSAGE);
-        }else{
+        String preco = jTF_Preco.getText();
+        if (nome.equals("")) {
+            JOptionPane.showMessageDialog(null, "nenhum campo pode estar vazio", 
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
             Connection con = Conexao.AbrirConexao();
             ClassificacaoDAO sql = new ClassificacaoDAO(con);
-            int cod =  Integer.parseInt(codigo);
-            double pre =  Double.parseDouble(preco);
-            
-            
+            double prec = Double.parseDouble(preco);
+            int cod = Integer.parseInt(codigo);
             Classificacao a = new Classificacao();
-
             
             a.setCodigo(cod);
             a.setNome(nome);
-            a.setPreco(pre);
-
+            a.setPreco(prec);
+            
             sql.Alterar_Classificacao(a);
             Conexao.FecharConexao(con);
-
+            
             jTF_Codigo.setText("");
             jTF_Nome.setText("");
             jTF_Preco.setText("");
-
-            JOptionPane.showMessageDialog(null,"Atualizado com Sucesso",
-                "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
-            new Menu().setVisible(true);
-            dispose();
+            JOptionPane.showMessageDialog(null, "Alteração Realizada com Sucesso",
+                    "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

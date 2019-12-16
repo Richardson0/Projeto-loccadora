@@ -5,16 +5,13 @@
  */
 package Visao.Alterar;
 
-import DAO.Conexao;
-import DAO.DVDDAO;
-import DAO.FilmeDAO;
-import Modelo.DVD;
-import Modelo.Filme;
-import java.sql.Connection;
+import DAO.*;
+import javax.swing.JOptionPane;
+import Modelo.*;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,44 +19,68 @@ import javax.swing.JOptionPane;
  */
 public class AlterarDVD extends javax.swing.JFrame {
 
-    public AlterarDVD(){
-    initComponents();
-     initComponents();
+    public AlterarDVD() {
+        initComponents();
         setLocationRelativeTo(this);
-        AtualizaComboFilme();
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        ComboFilme();
+    }
+    public void ComboFilme(){
+        Connection con = Conexao.AbrirConexao();
+        FilmeDAO bd = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        lista = bd.ListarComboFilme();
+        JCB_Filme.addItem("");
+
+        for (Filme tab : lista) {
+
+            JCB_Filme.addItem(tab.getTitulo());
+        }
+        Conexao.FecharConexao(con);
     }
     private void InserirDados(int cod) {
         
             Connection con = Conexao.AbrirConexao();
             DVDDAO sql = new DVDDAO(con);
             List<DVD> lista = new ArrayList<>();
-            lista = sql.Capturar_DVD(cod);
+            lista = sql.CapturarDVD(cod);
             
             for (DVD a : lista) {
                 
                 jTF_Codigo.setText("" + a.getCodigo());
                 jTF_Preco.setText(""+a.getPreco());
-                jTF_Nome.setText("" + a.getCod_filme());
-                jTF_Situacao.setText(a.getSituacao());
+                jTF_Filme.setText("" + a.getCod_filme());
+                
                 
                
             } 
             Conexao.FecharConexao(con);
         }
 
+    public void SelecionaComboFilme(){
+        Connection con = Conexao.AbrirConexao();
+        FilmeDAO bd = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        lista = bd.ConsultaCodigoFilme(JCB_Filme.getSelectedItem().toString());
+
+        for (Filme tab : lista) {
+            int a = tab.getCodigo();
+            jTF_Filme.setText(""+a);
+        }
+        Conexao.FecharConexao(con);
+    }
     private void AtualizaComboFilme(){
         Connection con = Conexao.AbrirConexao();
         FilmeDAO sql = new FilmeDAO(con);
         List<Filme> lista = new ArrayList<>();
         lista = sql.ListarFilme();
      
-        jCB_Nome.addItem("");
-        jTF_Nome.setText("");
+        JCB_Filme.addItem("");
+        jTF_Filme.setText("");
          
         for (Filme b: lista){
-            jCB_Nome.addItem(b.getTitulo());
+            JCB_Filme.addItem(b.getTitulo());
             
        }
         Conexao.FecharConexao(con);
@@ -77,16 +98,15 @@ public class AlterarDVD extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jTF_Codigo = new javax.swing.JTextField();
-        jTF_Nome = new javax.swing.JTextField();
+        jTF_Filme = new javax.swing.JTextField();
         jTF_Preco = new javax.swing.JTextField();
-        jTF_Situacao = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jCB_Nome = new javax.swing.JComboBox<>();
-        jDatacompra = new com.toedter.calendar.JDateChooser();
+        JCB_Filme = new javax.swing.JComboBox<>();
+        jTF_Data = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,14 +144,14 @@ public class AlterarDVD extends javax.swing.JFrame {
 
         jLabel5.setText("Preço");
 
-        jLabel6.setText("Situação");
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Alterar DVD");
 
         jLabel2.setText("Dig. o Codigo");
 
-        jCB_Nome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JCB_Filme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel7.setText("Data");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,15 +187,11 @@ public class AlterarDVD extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTF_Preco))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTF_Situacao, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTF_Nome))
+                                .addComponent(jTF_Filme))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,12 +199,14 @@ public class AlterarDVD extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCB_Nome, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JCB_Filme, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jDatacompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTF_Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(57, 57, 57))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,27 +227,24 @@ public class AlterarDVD extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDatacompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addComponent(jTF_Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTF_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTF_Filme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JCB_Filme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTF_Preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTF_Situacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,72 +256,66 @@ public class AlterarDVD extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
          String codigo = jTF_Codigo.getText();
-        String filme = jTF_Nome.getText();
         String preco = jTF_Preco.getText();
-        String data = new SimpleDateFormat("dd/MM/yyyy").format(jDatacompra.getDate());
-        String situacao = jTF_Situacao.getText();
-        
-       if (filme.equals("")) {
+        String data = jTF_Data.getDateFormatString();
+        String filme = jTF_Filme.getText();
+        if (filme.equals("")) {
             JOptionPane.showMessageDialog(null, "nenhum campo pode estar vazio", 
-                "Video Locadora", JOptionPane.WARNING_MESSAGE);
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
         } else {
-        Connection con = Conexao.AbrirConexao();
-        DVDDAO sql =  new DVDDAO(con);
-        int cod = Integer.parseInt(codigo);
-        int Filme = Integer.parseInt(filme);
-        double Preco = Double.parseDouble(preco);
-        DVD a = new DVD();
-        
-        a.setCodigo(cod);
-        a.setCod_filme(Filme);
-        a.setPreco(Preco);
-        a.setData_compra(data);
-        a.setSituacao(situacao);
-             
-        
-        sql.Alterar_DVD(a);
-        Conexao.FecharConexao(con);
-        jTF_Nome.setText("");
-        jTF_Preco.setText("");
-        jDatacompra.setDate(null);
-        jTF_Situacao.setText("");
-        jTF_Codigo.setText("");
-       
-        JOptionPane.showMessageDialog(null, "Alteração Realizada com Sucesso",
-                "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
+            Connection con = Conexao.AbrirConexao();
+            DVDDAO sql = new DVDDAO(con);
+            int cod = Integer.parseInt(codigo);
+            double prc = Double.parseDouble(preco);
+            int cfilme = Integer.parseInt(filme);
+            DVD a = new DVD();
             
-    }
+            a.setCodigo(cod);
+            a.setPreco(prc);
+            a.setCod_filme(cfilme);
+            a.setData_compra(data);
+            
+            sql.Alterar_DVD(a);
+            Conexao.FecharConexao(con);
+            
+            
+            jTF_Data.setDateFormatString("");
+            jTF_Codigo.setText("");
+            jTF_Preco.setText("");
+            jTF_Filme.setText("");
+            JOptionPane.showMessageDialog(null, "Alteração Realizada com Sucesso",
+                    "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String codigo = jTF_Codigo.getText();
+        String codigo = jTF_cod.getText();
         Connection con = Conexao.AbrirConexao();
         DVDDAO sql = new DVDDAO(con);
         int cod = Integer.parseInt(codigo);
-        if(sql.Testar_DVD(cod) == false){
-            JOptionPane.showMessageDialog(null,"Código não encontrado no banco",
-                "Video locadora", JOptionPane.ERROR_MESSAGE);
+        if (sql.Testar_DVD(cod) == false) {
+            JOptionPane.showMessageDialog(null, "Codigo não Encontrado no Banco",
+                "Video Locadora", JOptionPane.ERROR_MESSAGE);
             Conexao.FecharConexao(con);
         }
         if (codigo.equals("")){
-            JOptionPane.showMessageDialog(null,"Digite um codigo para atualizar",
-                "video locadora", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Digite um Codigo para Atualizar",
+                "Video Locadora", JOptionPane.WARNING_MESSAGE);
         }
-        jTF_cod.setText("");
-        jTF_Nome.setText("");
-      
+        jTF_Codigo.setText("");
+        jTF_Data.setDateFormatString("");
+        jTF_Preco.setText("");
+        jTF_Filme.setText("");
 
         InserirDados(cod);
-        jTF_Codigo.setText("");
+        jTF_cod.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jTF_cod.setText("");
-        jTF_Codigo.setText("");
-        jTF_Nome.setText("");
-        jTF_Situacao.setText("");  
-        jTF_Preco.setText("");
-        jTF_Nome.setText("");
+            jTF_Data.setDateFormatString("");
+            jTF_Codigo.setText("");
+            jTF_Preco.setText("");
+            jTF_Filme.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -345,24 +354,23 @@ public class AlterarDVD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> JCB_Filme;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jCB_Nome;
-    private com.toedter.calendar.JDateChooser jDatacompra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTF_Codigo;
-    private javax.swing.JTextField jTF_Nome;
+    private com.toedter.calendar.JDateChooser jTF_Data;
+    private javax.swing.JTextField jTF_Filme;
     private javax.swing.JTextField jTF_Preco;
-    private javax.swing.JPasswordField jTF_Situacao;
     private javax.swing.JTextField jTF_cod;
     // End of variables declaration//GEN-END:variables
 }
