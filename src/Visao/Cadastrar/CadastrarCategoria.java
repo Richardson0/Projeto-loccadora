@@ -60,6 +60,11 @@ public class CadastrarCategoria extends javax.swing.JFrame {
         jLabel3.setText("Codigo");
 
         jButton1.setText("Limpar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cadastrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +156,17 @@ public class CadastrarCategoria extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso", "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
             dispose();
-        } 
+        }  
                                             
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTF_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_NomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTF_NomeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       jTF_Nome.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
