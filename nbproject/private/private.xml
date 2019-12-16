@@ -4,16 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarFilme.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarClassificacao.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/Conexao.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/CategoriaDAO.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/locacao/ControleLocacao.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarCliente.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/locacao/ConsultarDevolucao.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarDVD.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/ClienteDAO.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarCategoria.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/DAO/ExecuteSQL.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarCliente.java</file>
-            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Modelo/Categoria.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarFilme.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarFuncionario.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarCategoria.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarDVD.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Consultar/ConsultarClassificacao.java</file>
             <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Cadastrar/CadastrarFuncionario.java</file>
+            <file>file:/C:/Users/richa/Documents/NetBeansProjects/Projeto-loccadora/Locadora/src/Visao/Alterar/AlterarDVD.java</file>
         </group>
     </open-files>
 </project-private>

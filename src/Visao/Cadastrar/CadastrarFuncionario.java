@@ -9,6 +9,7 @@ import DAO.Conexao;
 import DAO.FuncionarioDAO;
 import Modelo.Funcionario;
 import java.sql.Connection;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -228,8 +229,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "cadastro Realizado com Sucesso",
                         "Video Locadora",JOptionPane.INFORMATION_MESSAGE);
                 dispose();
-            } catch (SQLException ex) {
-               
+            } catch (SQLException e) {
+                   
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
