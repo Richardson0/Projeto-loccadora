@@ -5,15 +5,42 @@
  */
 package Visao.Consultar;
 
+import DAO.Conexao;
+import DAO.FilmeDAO;
+import Modelo.Filme;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author richa
  */
 public class ConsultarFilme extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ConsultarFilme
-     */
+    private void AtualizaTable(){
+        Connection con = Conexao.AbrirConexao();
+        FilmeDAO bd = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        lista = bd.ListarFilme();
+        DefaultTableModel tbm = (DefaultTableModel) jTable.getModel();
+        while (tbm.getRowCount() > 0){
+            tbm.removeRow(0);
+        }
+        int i = 0;
+        for (Filme tab : lista){
+            tbm.addRow(new String[1]);
+            jTable.setValueAt(tab.getCodigo(), i, 0);
+            jTable.setValueAt(tab.getTitulo(), i, 1);
+            jTable.setValueAt(tab.getAno(), i, 2);
+            jTable.setValueAt(tab.getDuracao(), i, 3);
+            jTable.setValueAt(tab.getCod_categoria(), i, 4);
+            jTable.setValueAt(tab.getCod_classificao(), i, 5);
+            i++;
+        }
+        Conexao.FecharConexao(con);
+    }
     public ConsultarFilme() {
         initComponents();
     }
@@ -28,28 +55,43 @@ public class ConsultarFilme extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTF_Titulo = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTF_cod = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Pesquisar por nome:");
 
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\richa\\Desktop\\ESCOLA\\IMGS\\pesquisar - Copia.jpg")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Pesquisar por codigo");
 
         jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\richa\\Desktop\\ESCOLA\\IMGS\\pesquisar - Copia.jpg")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Todos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -57,7 +99,7 @@ public class ConsultarFilme extends javax.swing.JFrame {
                 "Codigo", "Filme", "Ano", "Duração", "Categoria", "lClassificação"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,21 +107,21 @@ public class ConsultarFilme extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTF_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTF_cod, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -93,20 +135,75 @@ public class ConsultarFilme extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel1)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTF_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTF_cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 38, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton3)))
-                .addGap(18, 25, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       String titulo = jTF_Titulo.getText();
+        Connection con = Conexao.AbrirConexao();
+         FilmeDAO bd= new FilmeDAO (con);
+         List<Filme> lista = new ArrayList<>();
+         lista = bd.Pesquisar_Nome_Filme(titulo);
+         DefaultTableModel tbm = (DefaultTableModel) jTable.getModel ();
+         while (tbm.getRowCount()>0) {
+             tbm.removeRow(0);
+              }
+         int i = 0;
+         for( Filme tab : lista) {
+             tbm.addRow(new String[i]);
+             jTable.setValueAt(tab.getCodigo(), i,0);
+              jTable.setValueAt(tab.getTitulo(), i,1); 
+               jTable.setValueAt(tab.getAno(), i,2);
+                jTable.setValueAt(tab.getDuracao(), i,3);
+                 jTable.setValueAt(tab.getCod_categoria(), i,4);
+                  jTable.setValueAt(tab.getCod_classificao(), i,5);
+                  i++;
+                  
+                 }
+         Conexao.FecharConexao(con);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       int cod = Integer.parseInt( jTF_cod.getText());
+        Connection con = Conexao.AbrirConexao();
+         FilmeDAO bd= new FilmeDAO (con);
+         List<Filme> lista = new ArrayList<>();
+         lista = bd.Pesquisar_Cod_Filme(cod);
+         DefaultTableModel tbm = (DefaultTableModel) jTable.getModel ();
+         while (tbm.getRowCount()>0) {
+             tbm.removeRow(0);
+              }
+         int i = 0;
+         for( Filme tab : lista) {
+             tbm.addRow(new String[i]);
+             jTable.setValueAt(tab.getCodigo(), i,0);
+              jTable.setValueAt(tab.getTitulo(), i,1); 
+               jTable.setValueAt(tab.getAno(), i,2);
+                jTable.setValueAt(tab.getDuracao(), i,3);
+                 jTable.setValueAt(tab.getCod_categoria(), i,4);
+                  jTable.setValueAt(tab.getCod_classificao(), i,5);
+                  i++;
+                  
+                 }
+         Conexao.FecharConexao(con); 
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        AtualizaTable();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,8 +247,8 @@ public class ConsultarFilme extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTF_Titulo;
+    private javax.swing.JTextField jTF_cod;
+    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }

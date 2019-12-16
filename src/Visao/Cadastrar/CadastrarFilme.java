@@ -124,6 +124,11 @@ public class CadastrarFilme extends javax.swing.JFrame {
         });
 
         jButton2.setText("Limpa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cadastrar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -383,6 +388,10 @@ public class CadastrarFilme extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possivel carregar capa");
         }
     }//GEN-LAST:event_btCapaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     public static void main(String args[]) {

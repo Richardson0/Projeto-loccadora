@@ -9,6 +9,7 @@ import DAO.CategoriaDAO;
 import DAO.Conexao;
 import DAO.DVDDAO;
 import Modelo.Categoria;
+import Modelo.DVD;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +24,20 @@ public class ConsultarDVD extends javax.swing.JFrame {
     private void AtualizaTable(){
         Connection con = Conexao.AbrirConexao();
         DVDDAO bd = new DVDDAO(con);
-        List<Categoria> lista = new ArrayList<>();
+        List<DVD> lista = new ArrayList<>();
         lista = bd.ListarDVD();
         DefaultTableModel tbm = (DefaultTableModel) jTable.getModel();
         while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
         }
         int i = 0;
-        for (Categoria tab : lista){
+        for (DVD tab : lista){
             tbm.addRow(new String[1]);
             jTable.setValueAt(tab.getCodigo(), i, 0);
-            jTable.setValueAt(tab.getNome(), i, 1);
+            jTable.setValueAt(tab.getCod_filme(), i, 1);
+            jTable.setValueAt(tab.getPreco(), i, 2);
+            jTable.setValueAt(tab.getData_compra(), i, 3);
+            jTable.setValueAt(tab.getSituacao(), i, 4);
             i++;
         }
         Conexao.FecharConexao(con);
@@ -72,6 +76,11 @@ public class ConsultarDVD extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\richa\\Desktop\\ESCOLA\\IMGS\\pesquisar - Copia.jpg")); // NOI18N
 
         jButton3.setText("Todos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,6 +141,10 @@ public class ConsultarDVD extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         AtualizaTable();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
