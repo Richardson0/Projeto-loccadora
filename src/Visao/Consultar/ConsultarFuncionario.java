@@ -5,12 +5,10 @@
  */
 package Visao.Consultar;
 
-import DAO.Conexao;
-import DAO.FilmeDAO;
 import DAO.FuncionarioDAO;
-import Modelo.Filme;
+import DAO.Conexao;
 import Modelo.Funcionario;
-import java.sql.Connection;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -21,31 +19,34 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultarFuncionario extends javax.swing.JFrame {
 
-    private void AtualizaTable(){
+      private void AtualizaTable() {
+        
         Connection con = Conexao.AbrirConexao();
         FuncionarioDAO bd = new FuncionarioDAO(con);
         List<Funcionario> lista = new ArrayList<>();
         lista = bd.ListarFuncionario();
-        DefaultTableModel tbm = (DefaultTableModel) jTable.getModel();
+        DefaultTableModel tbm =
+                (DefaultTableModel) jTable.getModel();
         while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
         }
         int i = 0;
-        for (Funcionario tab : lista){
-            tbm.addRow(new String[1]);
+        for (Funcionario tab : lista) {
+            tbm.addRow(new String[i]);
             jTable.setValueAt(tab.getCod(), i, 0);
             jTable.setValueAt(tab.getNome(), i, 1);
-            jTable.setValueAt(tab.getLogin(), i, 2);
-            jTable.setValueAt("***************", i, 3);
             i++;
         }
         Conexao.FecharConexao(con);
     }
     public ConsultarFuncionario() {
         initComponents();
+        setTitle("Video Locadora");
+        setSize(970, 380);
         AtualizaTable();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(this);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,10 +59,10 @@ public class ConsultarFuncionario extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTF_Titulo = new javax.swing.JTextField();
+        jT_Nome = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTF_cod = new javax.swing.JTextField();
+        jT_Cod = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -113,13 +114,13 @@ public class ConsultarFuncionario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTF_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jT_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTF_cod, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jT_Cod, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -136,8 +137,8 @@ public class ConsultarFuncionario extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel1)
-                                .addComponent(jTF_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTF_cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jT_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jT_Cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(32, 32, 32))
@@ -153,57 +154,67 @@ public class ConsultarFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String titulo = jTF_Titulo.getText();
+        String nome = jT_Nome.getText();
         Connection con = Conexao.AbrirConexao();
-        FilmeDAO bd= new FilmeDAO (con);
-        List<Filme> lista = new ArrayList<>();
-        lista = bd.Pesquisar_Nome_Filme(titulo);
-        DefaultTableModel tbm = (DefaultTableModel) jTable.getModel ();
-        while (tbm.getRowCount()>0) {
+        FuncionarioDAO bd = new FuncionarioDAO(con);
+        List<Funcionario> lista = new ArrayList<>();
+        lista = bd.Pesquisar_Nome_Funcionario(nome);
+        DefaultTableModel tbm =
+                (DefaultTableModel) jTable.getModel();
+        while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
-        }
+        }            
         int i = 0;
-        for( Filme tab : lista) {
+        for (Funcionario tab : lista) {
             tbm.addRow(new String[i]);
-            jTable.setValueAt(tab.getCodigo(), i,0);
-            jTable.setValueAt(tab.getTitulo(), i,1);
-            jTable.setValueAt(tab.getAno(), i,2);
-            jTable.setValueAt(tab.getDuracao(), i,3);
-            jTable.setValueAt(tab.getCod_categoria(), i,4);
-            jTable.setValueAt(tab.getCod_classificao(), i,5);
+            jTable.setValueAt(tab.getCod(), i, 0);
+            jTable.setValueAt(tab.getNome(), i, 1);
             i++;
-
+        
         }
         Conexao.FecharConexao(con);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int cod = Integer.parseInt( jTF_cod.getText());
+          int cod = Integer.parseInt(jT_Cod.getText());
         Connection con = Conexao.AbrirConexao();
-        FilmeDAO bd= new FilmeDAO (con);
-        List<Filme> lista = new ArrayList<>();
-        lista = bd.Pesquisar_Cod_Filme(cod);
-        DefaultTableModel tbm = (DefaultTableModel) jTable.getModel ();
-        while (tbm.getRowCount()>0) {
+        FuncionarioDAO bd = new FuncionarioDAO(con);
+        List<Funcionario> lista = new ArrayList<>();
+        lista = bd.Pesquisar_Cod_Funcionario(cod);
+        DefaultTableModel tbm =
+                (DefaultTableModel) jTable.getModel();
+        while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
-        }
+        }            
         int i = 0;
-        for( Filme tab : lista) {
+        for (Funcionario tab : lista) {
             tbm.addRow(new String[i]);
-            jTable.setValueAt(tab.getCodigo(), i,0);
-            jTable.setValueAt(tab.getTitulo(), i,1);
-            jTable.setValueAt(tab.getAno(), i,2);
-            jTable.setValueAt(tab.getDuracao(), i,3);
-            jTable.setValueAt(tab.getCod_categoria(), i,4);
-            jTable.setValueAt(tab.getCod_classificao(), i,5);
+            jTable.setValueAt(tab.getCod(), i, 0);
+            jTable.setValueAt(tab.getNome(), i, 1);
             i++;
-
+        
         }
         Conexao.FecharConexao(con);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        AtualizaTable();
+         Connection con = Conexao.AbrirConexao();
+        FuncionarioDAO bd = new FuncionarioDAO(con);
+        List<Funcionario> lista = new ArrayList<>();
+        lista = bd.ListarFuncionario();
+        DefaultTableModel tbm =
+                (DefaultTableModel) jTable.getModel();
+        while (tbm.getRowCount() > 0){
+            tbm.removeRow(0);
+        }
+        int i = 0;
+        for (Funcionario tab : lista) {
+            tbm.addRow(new String[i]);
+            jTable.setValueAt(tab.getCod(), i, 0);
+            jTable.setValueAt(tab.getNome(), i, 1);
+            i++;
+        }
+        Conexao.FecharConexao(con);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -248,8 +259,8 @@ public class ConsultarFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTF_Titulo;
-    private javax.swing.JTextField jTF_cod;
+    private javax.swing.JTextField jT_Cod;
+    private javax.swing.JTextField jT_Nome;
     private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }

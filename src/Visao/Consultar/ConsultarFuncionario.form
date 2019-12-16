@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -30,13 +30,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTF_Titulo" min="-2" pref="103" max="-2" attributes="0"/>
+                      <Component id="jT_Nome" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTF_cod" min="-2" pref="118" max="-2" attributes="0"/>
+                      <Component id="jT_Cod" min="-2" pref="118" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -57,8 +57,8 @@
                           <Component id="jButton2" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTF_Titulo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTF_cod" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jT_Nome" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jT_Cod" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" max="32767" attributes="0"/>
                           </Group>
@@ -109,7 +109,7 @@
         <Property name="text" type="java.lang.String" value="Pesquisar por nome:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTF_Titulo">
+    <Component class="javax.swing.JTextField" name="jT_Nome">
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
@@ -126,7 +126,7 @@
         <Property name="text" type="java.lang.String" value="Pesquisar por codigo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTF_cod">
+    <Component class="javax.swing.JTextField" name="jT_Cod">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
