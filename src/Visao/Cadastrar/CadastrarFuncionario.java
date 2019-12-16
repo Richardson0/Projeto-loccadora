@@ -6,11 +6,10 @@
 package Visao.Cadastrar;
 
 import DAO.Conexao;
+import javax.swing.JOptionPane;
 import DAO.FuncionarioDAO;
 import Modelo.Funcionario;
-import java.sql.Connection;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.sql.*;
 
 /**
  *
@@ -21,8 +20,10 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     /**
      * Creates new form CadastrarFuncionario
      */
-    public CadastrarFuncionario() {
+     public CadastrarFuncionario() {
         initComponents();
+        setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -194,52 +195,37 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String codigo = jTF_Codigo.getText();
          String nome = jTF_Nome.getText();
-         String login = jTF_Login.getText();
-         String senha = jTF_Senha.getText();
-      
-        
-        if(nome.equals("") || codigo.equals("") || login.equals("")  
-            || senha.equals("") )   
-             {
-               JOptionPane.showMessageDialog(null, "Nenhum Campo pode estar vazio ","Video Locadora",
-                       JOptionPane.WARNING_MESSAGE);
-        }else{
-                Connection con = Conexao.AbrirConexao();
-                FuncionarioDAO sql = new FuncionarioDAO(con);
-                int n = Integer.parseInt(codigo);
-                Funcionario a = new Funcionario();
-               
-                a.setCod(n);
-                a.setNome(nome);
-                a.setLogin(login);
-                a.setSenha(senha);
-           
-            try { 
-                sql.Inserir_Funcionario(a);
-                Conexao.FecharConexao(con);
-
-                jTF_Codigo.setText("");  
-                jTF_Nome.setText("");
-                jTF_Login.setText("");
-                jTF_Senha.setText("");
-                
-                
-                JOptionPane.showMessageDialog(null, "cadastro Realizado com Sucesso",
-                        "Video Locadora",JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } catch (SQLException e) {
-                   
-            }
+        String login = jTF_Login.getText();
+        String senha = jTF_Senha.getText();
+        if (nome.equals("") || login.equals("") || senha.equals("")) {
+            JOptionPane.showMessageDialog(null, "nenhum campo pode estar vazio", 
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Connection con = Conexao.AbrirConexao();
+            FuncionarioDAO sql = new FuncionarioDAO(con);
+            Funcionario a = new Funcionario();
+            
+            a.setNome(nome);
+            a.setLogin(login);
+            a.setSenha(senha);
+            
+//            JOptionPane.showMessageDialog(null, a.getNome());
+            sql.Inserir_Funcionario(a);
+            Conexao.FecharConexao(con);
+            
+            jTF_Nome.setText("");
+            jTF_Login.setText("");
+            jTF_Senha.setText("");
+            JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso",
+                    "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jTF_Login.setText("");
-        jTF_Codigo.setText("");
-        jTF_Nome.setText("");
-        jTF_Senha.setText("");  
+            jTF_Nome.setText("");
+            jTF_Login.setText("");
+            jTF_Senha.setText("");  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

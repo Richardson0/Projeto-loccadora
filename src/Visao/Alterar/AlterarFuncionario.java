@@ -304,4 +304,8 @@ public class AlterarFuncionario extends javax.swing.JFrame {
     private javax.swing.JPasswordField jTF_Senha;
     private javax.swing.JTextField jTF_cod;
     // End of variables declaration//GEN-END:variables
+
+    private void InserirDados(int cod) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

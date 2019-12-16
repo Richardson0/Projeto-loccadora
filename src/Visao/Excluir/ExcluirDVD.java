@@ -5,11 +5,14 @@
  */
 package Visao.Excluir;
 
+import DAO.Conexao;
 import DAO.*;
 import Modelo.*;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+
 public class ExcluirDVD extends javax.swing.JFrame {
 
      private void AtualizaCombo(){
@@ -17,17 +20,20 @@ public class ExcluirDVD extends javax.swing.JFrame {
         CategoriaDAO sql = new CategoriaDAO(con);
         List<Categoria> lista = new ArrayList<>();
         lista = sql.ListarComboCategoria();
-        jCB_Nome.addItem("");
+        jCB_DVD.addItem("");
         
         for (Categoria b: lista){
-            jCB_Nome.addItem(b.getNome());
+            jCB_DVD.addItem(b.getNome());
         }
         Conexao.FecharConexao(con);
     }
     public ExcluirDVD() {
-        initComponents();
-        AtualizaCombo();
         setLocationRelativeTo(this);
+        initComponents();        
+        setTitle("Video Locadora");
+        AtualizaCombo();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
     }
     
 
@@ -43,10 +49,10 @@ public class ExcluirDVD extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTF_codigo = new javax.swing.JTextField();
+        jTF_DVD = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jCB_Nome = new javax.swing.JComboBox<>();
+        jCB_DVD = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -60,8 +66,6 @@ public class ExcluirDVD extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Excluir DVD");
 
-        jLabel3.setText("Nome");
-
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,12 +73,13 @@ public class ExcluirDVD extends javax.swing.JFrame {
             }
         });
 
-        jCB_Nome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCB_Nome.addActionListener(new java.awt.event.ActionListener() {
+        jCB_DVD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_NomeActionPerformed(evt);
+                jCB_DVDActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("DVD");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,24 +87,28 @@ public class ExcluirDVD extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 28, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jButton1)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(124, 124, 124)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 5, Short.MAX_VALUE)
+                        .addComponent(jTF_DVD, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCB_DVD, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,14 +119,14 @@ public class ExcluirDVD extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTF_DVD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCB_DVD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -128,41 +137,38 @@ public class ExcluirDVD extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String codigo = jTF_codigo.getText();
-       String nome = jCB_Nome.getSelectedItem().toString();
-       
-       Connection con = Conexao.AbrirConexao();
-       ClienteDAO sql = new ClienteDAO(con);
-       Cliente a = new Cliente();
-       if(nome.equals("")){
-           JOptionPane.showMessageDialog(null,"Nenhum nome Selecionado","Video Locadora",JOptionPane.WARNING_MESSAGE);
-       }else{
-           int b = JOptionPane.showConfirmDialog(null,"Deseja Realmente Excluir" + "\n (" + codigo + ") (" + nome + ")","Video Locadora",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(b == 0){
-        int cod = Integer.parseInt(codigo);
-        a.setNome(nome);
-        a.setCodigo(cod);
-        sql.equals(a);
-        Conexao.FecharConexao(con);
-        dispose();
+        String coddvd = jTF_DVD.getText();
+        
+        Connection con = Conexao.AbrirConexao();
+        DVDDAO sql = new DVDDAO(con);
+        DVD a = new DVD();
+        if (coddvd.equals("")) {
+            JOptionPane.showMessageDialog(null, "Nenhum Nome Selecionado",
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
+        int b = JOptionPane.showConfirmDialog(null, "Deseja realmente Excluir"
+                + " \n ( " + coddvd + " ) ", "Video Locadora",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (b == 0) {
+                int cod = Integer.parseInt(coddvd);
+                a.setCodigo(cod);
+                sql.Excluir_DVD(a);
+                Conexao.FecharConexao(con);
+                this.dispose();
+            }
         }
-       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCB_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_NomeActionPerformed
-       Connection con = Conexao.AbrirConexao();
-        CategoriaDAO sql = new CategoriaDAO(con);
-        List<Categoria> lista = new ArrayList<>();
-        String nome = jCB_Nome.getSelectedItem().toString();
+    private void jCB_DVDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_DVDActionPerformed
+        Connection con = Conexao.AbrirConexao();
+        DVDDAO sql = new DVDDAO(con);
+        List<DVD> lista = new ArrayList<>();
+        String nome = jCB_DVD.getSelectedItem().toString();
+       
+            jTF_DVD.setText("" + nome);
         
-        lista = sql.ConsultarCodigoCategoria(nome);
-        
-        for (Categoria b: lista){
-            int a = b.getCodigo();
-            jTF_codigo.setText("" + a);
-        }
-        Conexao.FecharConexao(con);
-    }//GEN-LAST:event_jCB_NomeActionPerformed
+        Conexao.FecharConexao(con); 
+    }//GEN-LAST:event_jCB_DVDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,10 +208,10 @@ public class ExcluirDVD extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jCB_Nome;
+    private javax.swing.JComboBox<String> jCB_DVD;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTF_codigo;
+    private javax.swing.JTextField jTF_DVD;
     // End of variables declaration//GEN-END:variables
 }

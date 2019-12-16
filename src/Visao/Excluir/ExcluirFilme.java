@@ -5,29 +5,38 @@
  */
 package Visao.Excluir;
 
-import DAO.*;
-import Modelo.*;
+import DAO.Conexao;
+import DAO.FilmeDAO;
+import Modelo.Filme;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+
+
 public class ExcluirFilme extends javax.swing.JFrame {
 
-     private void AtualizaCombo(){
+      private void AtualizaCombo() {
         Connection con = Conexao.AbrirConexao();
-        CategoriaDAO sql = new CategoriaDAO(con);
-        List<Categoria> lista = new ArrayList<>();
-        lista = sql.ListarComboCategoria();
-        jCB_Nome.addItem("");
-        
-        for (Categoria b: lista){
-            jCB_Nome.addItem(b.getNome());
+        FilmeDAO sql = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        lista = sql.ListarComboFilme();
+        jCB_Titulo.addItem("");
+
+        for (Filme b : lista) {
+
+            jCB_Titulo.addItem(b.getTitulo());
         }
         Conexao.FecharConexao(con);
     }
-    public ExcluirFilme() {
+      public ExcluirFilme() {
         initComponents();
-        AtualizaCombo();
+        
         setLocationRelativeTo(this);
+        
+        setTitle("Video Locadora");
+        AtualizaCombo();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
    
 
@@ -44,9 +53,9 @@ public class ExcluirFilme extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTF_codigo = new javax.swing.JTextField();
+        jTF_Codigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jCB_Nome = new javax.swing.JComboBox<>();
+        jCB_Titulo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,10 +78,9 @@ public class ExcluirFilme extends javax.swing.JFrame {
             }
         });
 
-        jCB_Nome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCB_Nome.addActionListener(new java.awt.event.ActionListener() {
+        jCB_Titulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_NomeActionPerformed(evt);
+                jCB_TituloActionPerformed(evt);
             }
         });
 
@@ -87,9 +95,9 @@ public class ExcluirFilme extends javax.swing.JFrame {
                         .addGap(0, 28, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCB_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -112,9 +120,9 @@ public class ExcluirFilme extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCB_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -130,41 +138,44 @@ public class ExcluirFilme extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String codigo = jTF_codigo.getText();
-       String nome = jCB_Nome.getSelectedItem().toString();
-       
-       Connection con = Conexao.AbrirConexao();
-       ClienteDAO sql = new ClienteDAO(con);
-       Cliente a = new Cliente();
-       if(nome.equals("")){
-           JOptionPane.showMessageDialog(null,"Nenhum nome Selecionado","Video Locadora",JOptionPane.WARNING_MESSAGE);
-       }else{
-           int b = JOptionPane.showConfirmDialog(null,"Deseja Realmente Excluir" + "\n (" + codigo + ") (" + nome + ")","Video Locadora",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(b == 0){
-        int cod = Integer.parseInt(codigo);
-        a.setNome(nome);
-        a.setCodigo(cod);
-        sql.equals(a);
-        Conexao.FecharConexao(con);
-        dispose();
+       String codigo = jTF_Codigo.getText();
+        String titulo = jCB_Titulo.getSelectedItem().toString();
+        
+        Connection con = Conexao.AbrirConexao();
+        FilmeDAO sql = new FilmeDAO(con);
+        Filme a = new Filme();
+        if (titulo.equals("")) {
+            JOptionPane.showMessageDialog(null, "Nenhum Nome Selecionado",
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
+        int b = JOptionPane.showConfirmDialog(null, "Deseja realmente Excluir"
+                + " \n ( " + codigo + " ) ( " + titulo + " ) ", "Video Locadora",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (b == 0) {
+                int cod = Integer.parseInt(codigo);
+                a.setTitulo(titulo);
+                a.setCodigo(cod);
+                sql.Excluir_Filme(a);
+                Conexao.FecharConexao(con);
+                this.dispose();
+            }
         }
-       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCB_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_NomeActionPerformed
+    private void jCB_TituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_TituloActionPerformed
         Connection con = Conexao.AbrirConexao();
-        CategoriaDAO sql = new CategoriaDAO(con);
-        List<Categoria> lista = new ArrayList<>();
-        String nome = jCB_Nome.getSelectedItem().toString();
+        FilmeDAO sql = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        String nome = jCB_Titulo.getSelectedItem().toString();
         
-        lista = sql.ConsultarCodigoCategoria(nome);
+        lista = sql.ConsultaCodigoFilme(nome);
         
-        for (Categoria b: lista){
+        for (Filme b : lista) {
             int a = b.getCodigo();
-            jTF_codigo.setText("" + a);
+            jTF_Codigo.setText("" + a);
         }
         Conexao.FecharConexao(con);
-    }//GEN-LAST:event_jCB_NomeActionPerformed
+    }//GEN-LAST:event_jCB_TituloActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,10 +215,10 @@ public class ExcluirFilme extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jCB_Nome;
+    private javax.swing.JComboBox<String> jCB_Titulo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTF_codigo;
+    private javax.swing.JTextField jTF_Codigo;
     // End of variables declaration//GEN-END:variables
 }

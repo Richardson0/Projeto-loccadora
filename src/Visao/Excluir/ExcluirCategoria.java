@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package Visao.Excluir;
-import DAO.*;
-import Modelo.*;
+import DAO.Conexao;
+import DAO.CategoriaDAO;
+import Modelo.Categoria;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ExcluirCategoria extends javax.swing.JFrame {
@@ -24,9 +26,11 @@ public class ExcluirCategoria extends javax.swing.JFrame {
         }
         Conexao.FecharConexao(con);
     }
-    public ExcluirCategoria() {
+     public ExcluirCategoria() {
         initComponents();
+        setTitle("Video Locadora");
         AtualizaCombo();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(this);
     }
 
@@ -40,7 +44,7 @@ public class ExcluirCategoria extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
-        jTF_codigo = new javax.swing.JTextField();
+        jTF_Codigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -51,9 +55,9 @@ public class ExcluirCategoria extends javax.swing.JFrame {
 
         jLabel3.setText("Nome");
 
-        jTF_codigo.addActionListener(new java.awt.event.ActionListener() {
+        jTF_Codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTF_codigoActionPerformed(evt);
+                jTF_CodigoActionPerformed(evt);
             }
         });
 
@@ -74,7 +78,6 @@ public class ExcluirCategoria extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Excluir Categoria");
 
-        jCB_Nome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCB_Nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCB_NomeActionPerformed(evt);
@@ -103,7 +106,7 @@ public class ExcluirCategoria extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -117,7 +120,7 @@ public class ExcluirCategoria extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTF_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -140,39 +143,42 @@ public class ExcluirCategoria extends javax.swing.JFrame {
         List<Categoria> lista = new ArrayList<>();
         String nome = jCB_Nome.getSelectedItem().toString();
         
-        lista = sql.ConsultarCodigoCategoria(nome);
+        lista = sql.ConsultaCodigoCategoria(nome);
         
-        for (Categoria b: lista){
+        for (Categoria b : lista) {
             int a = b.getCodigo();
-            jTF_codigo.setText("" + a);
+            jTF_Codigo.setText("" + a);
         }
         Conexao.FecharConexao(con);
     }//GEN-LAST:event_jCB_NomeActionPerformed
 
-    private void jTF_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_codigoActionPerformed
+    private void jTF_CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_CodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTF_codigoActionPerformed
+    }//GEN-LAST:event_jTF_CodigoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String codigo = jTF_codigo.getText();
-       String nome = jCB_Nome.getSelectedItem().toString();
-       
-       Connection con = Conexao.AbrirConexao();
-       ClienteDAO sql = new ClienteDAO(con);
-       Cliente a = new Cliente();
-       if(nome.equals("")){
-           JOptionPane.showMessageDialog(null,"Nenhum nome Selecionado","Video Locadora",JOptionPane.WARNING_MESSAGE);
-       }else{
-           int b = JOptionPane.showConfirmDialog(null,"Deseja Realmente Excluir" + "\n (" + codigo + ") (" + nome + ")","Video Locadora",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(b == 0){
-        int cod = Integer.parseInt(codigo);
-        a.setNome(nome);
-        a.setCodigo(cod);
-        sql.equals(a);
-        Conexao.FecharConexao(con);
-        dispose();
+        String codigo = jTF_Codigo.getText();
+        String nome = jCB_Nome.getSelectedItem().toString();
+        
+        Connection con = Conexao.AbrirConexao();
+        CategoriaDAO sql = new CategoriaDAO(con);
+        Categoria a = new Categoria();
+        if (nome.equals("")) {
+            JOptionPane.showMessageDialog(null, "Nenhum Nome Selecionado",
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
+        int b = JOptionPane.showConfirmDialog(null, "Deseja realmente Excluir"
+                + " \n ( " + codigo + " ) ( " + nome + " ) ", "Video Locadora",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (b == 0) {
+                int cod = Integer.parseInt(codigo);
+                a.setNome(nome);
+                a.setCodigo(cod);
+                sql.Excluir_Categoria(a);
+                Conexao.FecharConexao(con);
+                this.dispose();
+            }
         }
-       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -217,6 +223,6 @@ public class ExcluirCategoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTF_codigo;
+    private javax.swing.JTextField jTF_Codigo;
     // End of variables declaration//GEN-END:variables
 }

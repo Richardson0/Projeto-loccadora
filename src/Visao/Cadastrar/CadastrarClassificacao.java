@@ -5,11 +5,11 @@
  */
 package Visao.Cadastrar;
 
-import DAO.ClienteDAO;
 import DAO.Conexao;
-import Modelo.Cliente;
-import java.sql.Connection;
 import javax.swing.JOptionPane;
+import DAO.ClassificacaoDAO;
+import Modelo.Classificacao;
+import java.sql.*;
 
 /**
  *
@@ -22,8 +22,9 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
      */
     public CadastrarClassificacao() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(this);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,31 +153,33 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String nome = jTF_Nome.getText(); 
-       
-       if(nome.equals("")){
-            JOptionPane.showMessageDialog(null,"nenhum campo pode esta vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
-        }else{
+       String nome = jTF_Nome.getText();
+        String preco = jTF_Preco.getText();
+        if (nome.equals("") || preco.equals("")){
+        JOptionPane.showMessageDialog(null, "nenhum campo pode estar vazio", 
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        } else {
             Connection con = Conexao.AbrirConexao();
-            ClienteDAO sql = new ClienteDAO(con);
-            Cliente a = new Cliente();
+            ClassificacaoDAO sql = new ClassificacaoDAO(con);
+            Classificacao a = new Classificacao();
             
             a.setNome(nome);
+            a.setPreco(Double.parseDouble(preco));
             
-            sql.Inserir_Cliente(a);
+//            JOptionPane.showMessageDialog(null, a.getNome());
+            sql.Inserir_Classificacao(a);
             Conexao.FecharConexao(con);
             
             jTF_Nome.setText("");
-          
-            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso", "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-        } 
-           
+            jTF_Preco.setText("");
+            JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso",
+                    "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          jTF_Nome.setText("");
-         jTF_Preco.setText("");
+         jTF_Preco.setText(""); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
