@@ -28,31 +28,30 @@ public class ConsultarDevolucao extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
         jCB_Cliente = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Cliente");
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Cliente", "DVD", "Horario", "Locação", "Devolução"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable);
-
-        jCB_Cliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCB_Cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCB_ClienteActionPerformed(evt);
             }
         });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "DVD", "Cliente", "Horario", "Locação", "Devolução"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,9 +64,9 @@ public class ConsultarDevolucao extends javax.swing.JFrame {
                 .addComponent(jCB_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,16 +75,16 @@ public class ConsultarDevolucao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCB_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCB_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_ClienteActionPerformed
-       Connection con = Conexao.AbrirConexao();
+      Connection con = Conexao.AbrirConexao();
         AluguelDAO sql = new AluguelDAO(con);
         List<Cliente> listac = new ArrayList<>();
         String nome = jCB_Cliente.getSelectedItem().toString();
@@ -94,19 +93,19 @@ public class ConsultarDevolucao extends javax.swing.JFrame {
         List<Aluguel> lista = new ArrayList<>();
         lista = sql.ListarAluguel();
         DefaultTableModel tbm =
-                (DefaultTableModel) jCB_Cliente.getModel();
+                (DefaultTableModel) jTable.getModel();
         while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
         }
         int i = 0;
         for (Aluguel tab : lista) {
             tbm.addRow(new String[i]);
-            jCB_Cliente.setValueAt(tab.getCod(), i, 0);
-            jCB_Cliente.setValueAt(tab.getCoddvd(), i, 1);
-            jCB_Cliente.setValueAt(tab.getCodcliente(), i, 2);
-            jCB_Cliente.setValueAt(tab.getHorario(), i, 3);
-            jCB_Cliente.setValueAt(tab.getData_aluguel(), i, 4);
-            jCB_Cliente.setValueAt(tab.getData_devolucao(), i, 5);
+            jTable.setValueAt(tab.getCod(), i, 0);
+            jTable.setValueAt(tab.getCoddvd(), i, 1);
+            jTable.setValueAt(tab.getCodcliente(), i, 2);
+            jTable.setValueAt(tab.getHorario(), i, 3);
+            jTable.setValueAt(tab.getData_aluguel(), i, 4);
+            jTable.setValueAt(tab.getData_devolucao(), i, 5);
             i++;
         }
         } else {
@@ -118,19 +117,19 @@ public class ConsultarDevolucao extends javax.swing.JFrame {
             List<Aluguel> lista = new ArrayList<>();
         lista = sql.Pesquisar_Aluguel_Cliente(codt);
         DefaultTableModel tbm =
-                (DefaultTableModel) jCB_Cliente.getModel();
+                (DefaultTableModel) jTable.getModel();
         while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
         }            
         int i = 0;
         for (Aluguel tab : lista) {
             tbm.addRow(new String[i]);
-            jCB_Cliente.setValueAt(tab.getCod(), i, 0);
-            jCB_Cliente.setValueAt(tab.getCodcliente(), i, 1);
-            jCB_Cliente.setValueAt(tab.getCoddvd(), i, 2);
-            jCB_Cliente.setValueAt(tab.getHorario(), i, 3);
-            jCB_Cliente.setValueAt(tab.getData_aluguel(), i, 4);
-            jCB_Cliente.setValueAt(tab.getData_devolucao(), i, 5);
+            jTable.setValueAt(tab.getCod(), i, 0);
+            jTable.setValueAt(tab.getCodcliente(), i, 1);
+            jTable.setValueAt(tab.getCoddvd(), i, 2);
+            jTable.setValueAt(tab.getHorario(), i, 3);
+            jTable.setValueAt(tab.getData_aluguel(), i, 4);
+            jTable.setValueAt(tab.getData_devolucao(), i, 5);
             i++;
         }
         }
@@ -174,7 +173,7 @@ public class ConsultarDevolucao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jCB_Cliente;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
